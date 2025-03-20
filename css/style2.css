@@ -1,0 +1,129 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #E0F2FE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.container {
+    background-color: white;
+    width: 75%;
+    max-width: 1024px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    overflow: hidden;
+}
+.left {
+    width: 50%;
+    padding: 32px;
+}
+.left h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.left p {
+    color: #6B7280;
+    margin-bottom: 24px;
+}
+.left button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 16px;
+    background-color: white;
+    cursor: pointer;
+}
+.left button i {
+    margin-right: 8px;
+}
+.left form {
+    margin-bottom: 24px;
+}
+.left form div {
+    margin-bottom: 16px;
+}
+.left form label {
+    display: block;
+    color: #374151;
+    margin-bottom: 4px;
+}
+.left form input {
+    width: 100%;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 8px;
+    margin-top: 4px;
+}
+.left form a {
+    color: #3B82F6;
+    text-decoration: none;
+}
+.left form button {
+    width: 100%;
+    background-color: #3B82F6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+}
+.left p {
+    color: #9CA3AF;
+    font-size: 12px;
+    margin-top: 24px;
+}
+.right {
+    width: 50%;
+    background-color: #065242;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.right .icon {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    padding: 8px;
+}
+.right .icon.left {
+    top: 16px;
+    left: 16px;
+}
+.right .icon.right {
+    top: 16px;
+    right: 16px;
+}
+.right .icon i {
+    color: #F59E0B;
+}
+.right .icon.right i {
+    color: #EF4444;
+}
+.right .content {
+    text-align: center;
+    color: white;
+    padding: 32px;
+}
+.right .content h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.right .content p {
+    font-size: 18px;
+}
+.right .content img {
+    margin-top: 24px;
+    border-radius: 8px;
+    width: 300px;
+    height: 300px;
+}
