@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart | Restaurant Name</title>
+    <link rel="stylesheet" href="/css/newmenu.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/cart.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="promo-bar">
+            <div class="container">
+                Free delivery for orders over $40. Use code: FREEDEL40
+            </div>
+        </div>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="Restaurant Logo">
+                    <h1 style="color: whitesmoke;">Cafe Cactus</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="user-cart">
+                    <div class="cart-btn">
+                        <div class="glass">
+                            <i class="fas fa-shopping-cart" style="color: whitesmoke;"></i>
+                            <span style="color: whitesmoke;">Cart</span>
+                            <div class="cart-count">3</div>
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="glass">
+                            <i class="fas fa-user"  style="color: whitesmoke;"></i>
+                            <span style="color: whitesmoke;">Aarav</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <br><br>
+
+    <!-- Cart Page Content -->
+    <section class="cart-page">
+        <div class="container">
+            <div class="cart-header">
+                
+                <h1>Your Cart</h1>
+                <p>Review and checkout your delicious selections</p>
+                <br>
+            </div>
+            
+            <!-- Cart Items Table -->
+            <div class="cart-table">
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <th width="10%">Item</th>
+                            <th width="40%">Details</th>
+                            <th width="15%">Price</th>
+                            <th width="15%">Quantity</th>
+                            <th width="15%">Total</th>
+                            <th width="5%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Cart Item 1 -->
+                        <tr>
+                            <td data-label="Item">
+                                <div class="cart-item-image">
+                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food1.webp" alt="Margherita Pizza">
+                                </div>
+                            </td>
+                            <td data-label="Details">
+                                <div class="item-details">
+                                    <h3>Margherita Pizza</h3>
+                                    <div class="item-category">Pizza</div>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="item-price">$12.99</td>
+                            <td data-label="Quantity">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn">-</button>
+                                    <input type="text" class="quantity-input" value="1">
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Total" class="item-total">$12.99</td>
+                            <td>
+                                <i class="fas fa-trash remove-item"></i>
+                            </td>
+                        </tr>
+                        
+                        <!-- Cart Item 2 -->
+                        <tr>
+                            <td data-label="Item">
+                                <div class="cart-item-image">
+                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food2.webp" alt="Pasta Carbonara">
+                                </div>
+                            </td>
+                            <td data-label="Details">
+                                <div class="item-details">
+                                    <h3>Pasta Carbonara</h3>
+                                    <div class="item-category">Pasta</div>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="item-price">$14.50</td>
+                            <td data-label="Quantity">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn">-</button>
+                                    <input type="text" class="quantity-input" value="2">
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Total" class="item-total">$29.00</td>
+                            <td>
+                                <i class="fas fa-trash remove-item"></i>
+                            </td>
+                        </tr>
+                        
+                        <!-- Cart Item 3 -->
+                        <tr>
+                            <td data-label="Item">
+                                <div class="cart-item-image">
+                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food3.webp" alt="Tiramisu">
+                                </div>
+                            </td>
+                            <td data-label="Details">
+                                <div class="item-details">
+                                    <h3>Tiramisu</h3>
+                                    <div class="item-category">Dessert</div>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="item-price">$7.99</td>
+                            <td data-label="Quantity">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn">-</button>
+                                    <input type="text" class="quantity-input" value="1">
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Total" class="item-total">$7.99</td>
+                            <td>
+                                <i class="fas fa-trash remove-item"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Cart Summary Section -->
+            <div class="cart-summary">
+                <!-- Coupon Section -->
+                <div class="coupon-section">
+                    <h3>Apply Coupon</h3>
+                    <div class="coupon-form">
+                        <input type="text" class="coupon-input" placeholder="Enter coupon code">
+                        <button class="apply-coupon">Apply</button>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-item">
+                        <span>Subtotal</span>
+                        <span>$49.98</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Discount</span>
+                        <span>-$0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Delivery Fee</span>
+                        <span>$3.99</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Tax</span>
+                        <span>$5.40</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span>$59.37</span>
+                    </div>
+                    <button class="checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+            
+            <!-- Continue Shopping Link -->
+            <a href="menu.html" class="continue-shopping">
+                <i class="fas fa-arrow-left"></i> Continue Shopping
+            </a>
+        </div>
+    </section>
+    
+    <!-- Empty Cart State (hidden by default, toggle with JavaScript in real implementation) -->
+    <div class="container" style="display: none;">
+        <div class="cart-empty">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>Your cart is empty</h2>
+            <p>Looks like you haven't added anything to your cart yet.</p>
+            <a href="menu.html" class="checkout-btn">Browse Menu</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/img/logo.png" alt="Restaurant Logo">
+                    <p>Delicious food delivered to your doorstep. We offer a wide variety of cuisines to satisfy your cravings.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Pizza</a></li>
+                        <li><a href="#">Burgers</a></li>
+                        <li><a href="#">Pasta</a></li>
+                        <li><a href="#">Desserts</a></li>
+                        <li><a href="#">Beverages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</p>
+                    <p><i class="fas fa-phone-alt"></i> +1 234 567 890</p>
+                    <p><i class="fas fa-envelope"></i> info@restaurant.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                © 2025 Restaurant Name. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart">
+        <div class="cart-btn-floating">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-count-floating">3</div>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript for demonstration purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quantity buttons functionality
+            const quantityBtns = document.querySelectorAll('.quantity-btn');
+            
+            quantityBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.quantity-input');
+                    let value = parseInt(input.value);
+                    
+                    if (this.textContent === '+') {
+                        value++;
+                    } else if (this.textContent === '-' && value > 1) {
+                        value--;
+                    }
+                    
+                    input.value = value;
+                    updateTotal(this);
+                });
+            });
+            
+            // Remove item functionality
+            const removeButtons = document.querySelectorAll('.remove-item');
+            
+            removeButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    row.remove();
+                    
+                    // Check if cart is empty after removing item
+                    const cartItems = document.querySelectorAll('tbody tr');
+                    if (cartItems.length === 0) {
+                        document.querySelector('.cart-table').style.display = 'none';
+                        document.querySelector('.cart-summary').style.display = 'none';
+                        document.querySelector('.continue-shopping').style.display = 'none';
+                        document.querySelector('.cart-empty').parentElement.style.display = 'block';
+                    }
+                    
+                    updateOrderSummary();
+                });
+            });
+            
+            // Function to update item total
+            function updateTotal(element) {
+                const row = element.closest('tr');
+                const price = parseFloat(row.querySelector('.item-price').textContent.replace('$', ''));
+                const quantity = parseInt(row.querySelector('.quantity-input').value);
+                const total = price * quantity;
+                
+                row.querySelector('.item-total').textContent = '$' + total.toFixed(2);
+                updateOrderSummary();
+            }
+            
+            // Function to update order summary
+            function updateOrderSummary() {
+                const totalElements = document.querySelectorAll('.item-total');
+                let subtotal = 0;
+                
+                totalElements.forEach(el => {
+                    subtotal += parseFloat(el.textContent.replace('$', ''));
+                });
+                
+                const tax = subtotal * 0.1;
+                const deliveryFee = subtotal >= 40 ? 0 : 3.99;
+                const total = subtotal + tax + deliveryFee;
+                
+                document.querySelector('.summary-item:nth-child(1) span:last-child').textContent = '$' + subtotal.toFixed(2);
+                document.querySelector('.summary-item:nth-child(3) span:last-child').textContent = '$' + deliveryFee.toFixed(2);
+                document.querySelector('.summary-item:nth-child(4) span:last-child').textContent = '$' + tax.toFixed(2);
+                document.querySelector('.summary-total span:last-child').textContent = '$' + total.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>
