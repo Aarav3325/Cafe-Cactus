@@ -19,7 +19,7 @@
     <header>
         <div class="promo-bar">
             <div class="container">
-                Free delivery for orders over $40. Use code: FREEDEL40
+                <p><strong>Get 5% Off on your first order, PROMOCODE: FIRST5</strong></p>
             </div>
         </div>
         <div class="container">
@@ -48,10 +48,12 @@
                     </a>
                 </div>
                 <div class="user-profile">
-                    <div class="glass">
-                        <i class="fas fa-user" style="color: whitesmoke;"></i>
-                        <span style="color: whitesmoke;">Aarav</span>
-                    </div>
+                    <a href="/userprofile.html" style="text-decoration: none;">
+                        <div class="glass">
+                            <i class="fas fa-user" style="color: whitesmoke;"></i>
+                            <span style="color: whitesmoke;" id="username">Aarav</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -88,7 +90,7 @@
                         <tr>
                             <td data-label="Item">
                                 <div class="cart-item-image">
-                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food1.webp"
+                                    <img src="img/menu/margheita.jpeg"
                                         alt="Margherita Pizza">
                                 </div>
                             </td>
@@ -98,7 +100,7 @@
                                     <div class="item-category">Pizza</div>
                                 </div>
                             </td>
-                            <td data-label="Price" class="item-price">$12.99</td>
+                            <td data-label="Price" class="item-price">₹449</td>
                             <td data-label="Quantity">
                                 <div class="quantity-control">
                                     <button class="quantity-btn">-</button>
@@ -106,7 +108,7 @@
                                     <button class="quantity-btn">+</button>
                                 </div>
                             </td>
-                            <td data-label="Total" class="item-total">$12.99</td>
+                            <td data-label="Total" class="item-total">₹449</td>
                             <td>
                                 <i class="fas fa-trash remove-item"></i>
                             </td>
@@ -116,7 +118,7 @@
                         <tr>
                             <td data-label="Item">
                                 <div class="cart-item-image">
-                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food2.webp"
+                                    <img src="img/menu/truffle_alfredo_pasta.jpeg"
                                         alt="Pasta Carbonara">
                                 </div>
                             </td>
@@ -126,15 +128,15 @@
                                     <div class="item-category">Pasta</div>
                                 </div>
                             </td>
-                            <td data-label="Price" class="item-price">$14.50</td>
+                            <td data-label="Price" class="item-price">₹349</td>
                             <td data-label="Quantity">
                                 <div class="quantity-control">
                                     <button class="quantity-btn">-</button>
-                                    <input type="text" class="quantity-input" value="2">
+                                    <input type="text" class="quantity-input" value="1">
                                     <button class="quantity-btn">+</button>
                                 </div>
                             </td>
-                            <td data-label="Total" class="item-total">$29.00</td>
+                            <td data-label="Total" class="item-total">₹349</td>
                             <td>
                                 <i class="fas fa-trash remove-item"></i>
                             </td>
@@ -144,7 +146,7 @@
                         <tr>
                             <td data-label="Item">
                                 <div class="cart-item-image">
-                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food3.webp"
+                                    <img src="img/menu/triramisu.jpeg"
                                         alt="Tiramisu">
                                 </div>
                             </td>
@@ -154,7 +156,7 @@
                                     <div class="item-category">Dessert</div>
                                 </div>
                             </td>
-                            <td data-label="Price" class="item-price">$7.99</td>
+                            <td data-label="Price" class="item-price">₹299</td>
                             <td data-label="Quantity">
                                 <div class="quantity-control">
                                     <button class="quantity-btn">-</button>
@@ -162,7 +164,7 @@
                                     <button class="quantity-btn">+</button>
                                 </div>
                             </td>
-                            <td data-label="Total" class="item-total">$7.99</td>
+                            <td data-label="Total" class="item-total">₹299</td>
                             <td>
                                 <i class="fas fa-trash remove-item"></i>
                             </td>
@@ -187,23 +189,19 @@
                     <h3>Order Summary</h3>
                     <div class="summary-item">
                         <span>Subtotal</span>
-                        <span>$49.98</span>
+                        <span>₹1097</span>
                     </div>
                     <div class="summary-item">
                         <span>Discount</span>
-                        <span>-$0.00</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Delivery Fee</span>
-                        <span>$3.99</span>
+                        <span>-₹0</span>
                     </div>
                     <div class="summary-item">
                         <span>Tax</span>
-                        <span>$5.40</span>
+                        <span>₹109.7</span>
                     </div>
                     <div class="summary-total">
                         <span>Total</span>
-                        <span>$59.37</span>
+                        <span>₹1206.7</span>
                     </div>
                     <button class="checkout-btn" onclick="showToast()">Proceed to Checkout</button>
                 </div>
@@ -211,7 +209,7 @@
 
             <!-- Continue Shopping Link -->
             <a href="menu.html" class="continue-shopping">
-                <i class="fas fa-arrow-left"></i> Continue Shopping
+                <i class="fas fa-arrow-left"></i> Go Back To Menu
             </a>
         </div>
     </section>
@@ -273,64 +271,56 @@
             <div class="cart-count-floating">3</div>
         </div>
     </div>
-
+    <!-- 
     <div class="cart-container">
         <h2>Your Cart</h2>
         <div class="cart-items" id="cartItems">
-            <!-- Cart items will be rendered here -->
             <p>Your cart is currently empty</p>
         </div>
         <button id="checkoutBtn" class="checkout-btn">Proceed to Checkout</button>
     </div>
-    
+     -->
     <!-- Toast component -->
+
     <div id="toast" class="toast">
-        <div id="toastMessage" style="font-size: 18px;font-weight: 600;">Order placed successfully!</div>
+        <div id="toastMessage">✅ Order placed successfully!</div>
     </div>
-    
-   
+
 
     <script>
 
-        // Add this at the end of your existing script, inside the DOMContentLoaded event listener
+        const fetchUserName = localStorage.getItem("username")
+        document.getElementById("username").innerHTML = fetchUserName;
 
-        // Show toast function
-        function showToast(message, type = 'success') {
-            toast.className = 'toast';
+        function showToast() {
+            var toast = document.getElementById("toast");
 
-            if (type === 'error') {
-                toast.classList.add('error');
-            }
+            // Remove any existing progress bar
+            var oldProgress = toast.querySelector(".progress-bar");
+            if (oldProgress) oldProgress.remove();
 
-            toastMessage.textContent = message;
-            toast.classList.add('show');
+            // Create new progress bar
+            var progressBar = document.createElement("div");
+            progressBar.classList.add("progress-bar");
+            toast.appendChild(progressBar);
 
-            // Hide toast after 3 seconds
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            // Show toast
+            toast.classList.add("show");
+
+            setTimeout(function () {
+                toast.classList.remove("show");
+            }, 5000); // Hide after 3 seconds
         }
 
-        // Checkout button event listener
-        checkoutBtn.addEventListener('click', function () {
-            // Simulate order processing
-            checkoutBtn.textContent = 'Processing...';
-            checkoutBtn.disabled = true;
 
-            // Simulate a short loading time
-            setTimeout(() => {
-                // Show success toast
-                showToast('Order placed successfully! Your delicious food is on the way.');
+    </script>
 
-                // Reset the cart (you can either clear it or redirect to a confirmation page)
-                setTimeout(() => {
-                    cartItems = [];
-                    renderCartItems();
-                    checkoutBtn.textContent = 'Proceed to Checkout';
-                    checkoutBtn.disabled = false;
-                }, 1000);
-            }, 2000);
-        });
+
+
+
+    <script>
+
+
 
         // Simple JavaScript for demonstration purposes
         document.addEventListener('DOMContentLoaded', function () {
@@ -350,6 +340,7 @@
 
                     input.value = value;
                     updateTotal(this);
+                    updateOrderSummary();
                 });
             });
 
@@ -377,11 +368,11 @@
             // Function to update item total
             function updateTotal(element) {
                 const row = element.closest('tr');
-                const price = parseFloat(row.querySelector('.item-price').textContent.replace('$', ''));
+                const price = parseFloat(row.querySelector('.item-price').textContent.replace('₹', ''));
                 const quantity = parseInt(row.querySelector('.quantity-input').value);
                 const total = price * quantity;
 
-                row.querySelector('.item-total').textContent = '$' + total.toFixed(2);
+                row.querySelector('.item-total').textContent = '₹' + total.toFixed(2);
                 updateOrderSummary();
             }
 
@@ -391,20 +382,25 @@
                 let subtotal = 0;
 
                 totalElements.forEach(el => {
-                    subtotal += parseFloat(el.textContent.replace('$', ''));
+                    subtotal += parseFloat(el.textContent.replace('₹', ''));
                 });
 
                 const tax = subtotal * 0.1;
                 const deliveryFee = subtotal >= 40 ? 0 : 3.99;
-                const total = subtotal + tax + deliveryFee;
+                const total = subtotal + tax;
 
-                document.querySelector('.summary-item:nth-child(1) span:last-child').textContent = '$' + subtotal.toFixed(2);
-                document.querySelector('.summary-item:nth-child(3) span:last-child').textContent = '$' + deliveryFee.toFixed(2);
-                document.querySelector('.summary-item:nth-child(4) span:last-child').textContent = '$' + tax.toFixed(2);
-                document.querySelector('.summary-total span:last-child').textContent = '$' + total.toFixed(2);
+                const summaryItems = document.querySelectorAll('.summary-item span:last-child');
+                summaryItems[0].textContent = '₹' + subtotal.toFixed(2); // Subtotal
+                summaryItems[1].textContent = '₹' + deliveryFee.toFixed(2); // Delivery Fee
+                summaryItems[2].textContent = '₹' + tax.toFixed(2); // Tax
+
+                document.querySelector('.summary-total span:last-child').textContent = '₹' + total.toFixed(2);
             }
-        });
+
+         });
     </script>
+
+
 </body>
 
 </html>

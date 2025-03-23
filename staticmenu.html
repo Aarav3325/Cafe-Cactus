@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Cafe Cactus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" sizes="192x192" href="/img/logo.png"/>
+    <link rel="stylesheet" href="/css/newmenu.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        function smoothScroll(target) {
+            const targetElement = document.getElementById(target);
+            if (!targetElement) return;
+    
+            const startPosition = window.pageYOffset;
+            const targetPosition = targetElement.getBoundingClientRect().top + startPosition;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+    
+            function animation(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const duration = 800; // Adjust duration (in ms) for speed
+                const easing = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+    
+                window.scrollTo(0, easing);
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                }
+            }
+    
+            function easeInOutQuad(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return (c / 2) * t * t + b;
+                t--;
+                return (-c / 2) * (t * (t - 2) - 1) + b;
+            }
+    
+            requestAnimationFrame(animation);
+        }
+    
+        document.querySelectorAll('.menu-nav-item a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                smoothScroll(targetId);
+            });
+        });
+    </script>
+    
+</head>
+
+<body>
+    <header>
+        <div class="promo-bar">
+            <div class="container">
+                <p><strong>Get 5% Off on your first order, PROMOCODE: FIRST5</strong></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="Cafe Cactus Logo">
+                    <h1 style="color: whitesmoke;">Cafe Cactus</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/menu.html" class="active">Menu</a></li>
+                        <li><a href="#">Orders</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="user-cart">
+                    <a href="/cart.html" style="text-decoration: none;">
+                    <div class="cart-btn">
+                        <div class="glass">
+                            <i class="fas fa-shopping-cart" style="color: whitesmoke;"></i>
+                            <span style="color: whitesmoke;">Cart</span>
+                            <!-- <div class="cart-count">5</div> -->
+                        </div>
+                    </a>
+                    </div>
+                    <div class="user-profile">
+                        <div class="glass">
+                            <i class="fas fa-user" style="color: whitesmoke;"></i>
+                            <span style="color: whitesmoke;">Aarav</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="menu-hero">
+        <div class="menu-hero-content">
+            <h1>Our Menu</h1>
+            <p>Discover a world of flavors crafted with passion</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="menu-nav glass">
+            <div class="menu-nav-container">
+                <div class="menu-nav-item" data-target="breakfast">Breakfast</div>
+                <div class="menu-nav-item" data-target="coffee"><a href="#coffee">Coffee & Beverages</a></div>
+                <div class="menu-nav-item" data-target="coffee"><a href="#pizza">Pizza</a></div>
+                <div class="menu-nav-item" data-target="coffee"><a href="#pasta">Pasta</a></div>
+                <div class="menu-nav-item" data-target="coffee"><a href="#sandwiches">Sandwiches</a></div>
+                <div class="menu-nav-item" data-target="coffee"><a href="#quick">Quick Bites</a></div>
+                <div class="menu-nav-item" data-target="coffee"><a href="#burgers">Burgers</a></div>
+                <div class="menu-nav-item" data-target="coffee"><a href="#desserts">Desserts</a></div>
+                <div class="menu-nav-item" data-target="coffee"><a href="#appetizers">Appetizers</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breakfast Section -->
+    <section class="menu-section" id="breakfast">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Breakfast</h2>
+                <br><br>
+                <p>Start your day with our delicious breakfast options!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/truffle_paratha.jpeg" alt="Avocado Toast">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Bestseller</div>
+                        <h3 class="menu-item-title">Truffle Cheese Paratha</h3>
+                        <p class="menu-item-description">Flaky paratha stuffed with a rich truffle-infused cheese blend.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹179</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/avacado_toast.jpeg" alt="English Breakfast">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Avocado Toast with Feta</h3>
+                        <p class="menu-item-description">Sourdough toast topped with creamy avocado & crumbled feta.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹249</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/banna_choco_waffles.jpeg" alt="Pancake Stack">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Banana Choco Waffles</h3>
+                        <p class="menu-item-description">Crispy waffles topped with banana slices and chocolate drizzle</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹190</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coffee Section -->
+    <section class="menu-section" id="coffee">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Coffee & Beverages</h2>
+                <br><br>
+                <p>Premium brews and refreshing drinks!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/belgian_ mocha.jpeg" alt="Cappuccino">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Popular</div>
+                        <h3 class="menu-item-title">Belgian Mocha</h3>
+                        <p class="menu-item-description">Rich chocolate blended with freshly brewed espresso.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹349</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/saffron_latte.jpeg" alt="Cold Brew">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Saffron Pistachio Latte</h3>
+                        <p class="menu-item-description">Creamy latte with a hint of saffron and pistachio.r</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹399</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/citrus_cold_brew.jpeg" alt="Fresh Fruit Smoothie">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Citrus Cold Brew</h3>
+                        <p class="menu-item-description"> Refreshing cold brew with a zesty citrus twist.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹299</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Pizza Section -->
+     <section class="menu-section" id="pizza">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Pizza</h2>
+                <br><br>
+                <p>Every slice tells a cheesy story of flavor!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/margheita.jpeg" alt="Classic Cheeseburger">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Bestseller</div>
+                        <h3 class="menu-item-title">Classic Truffle Margherita</h3>
+                        <p class="menu-item-description">Cheesy goodness with fresh basil and a truffle drizzle.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹499</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/5_cheese_overload.jpeg" alt="Veggie Supreme">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">5-Cheese Overload</h3>
+                        <p class="menu-item-description"> A melty mix of mozzarella, gouda, parmesan, feta & ricotta.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹579</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/burrata_delight.jpeg" alt="Spicy Chicken Burger">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Burrata Delight</h3>
+                        <p class="menu-item-description">Creamy burrata with sundried tomatoes and basil pesto.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹549</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- pasta Section -->
+    <section class="menu-section" id="pasta">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Pasta</h2>
+                <br><br>
+                <p>A creamy, saucy delight in every bite!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/truffle_alfredo_pasta.jpeg" alt="Classic Cheeseburger">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Bestseller</div>
+                        <h3 class="menu-item-title">Truffle Alfredo Pasta</h3>
+                        <p class="menu-item-description">Classic Alfredo with a hint of truffle.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹349</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/ricotta_ ravioli.jpeg" alt="Veggie Supreme">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Ricotta Ravioli</h3>
+                        <p class="menu-item-description">Soft ravioli stuffed with ricotta and sundried tomatoes.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹399</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/spicy_arrabbiata.jpeg" alt="Spicy Chicken Burger">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Spicy Arrabbiata</h3>
+                        <p class="menu-item-description">Pasta in a bold and tangy tomato sauce.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹399</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sandwiches Section -->
+    <section class="menu-section" id="sandwiches">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Sandwiches</h2>
+                <br><br>
+                <p>Fresh, fulfilling, and layered with goodness!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/burrata_sandwich.jpeg" alt="Classic Cheeseburger">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Bestseller</div>
+                        <h3 class="menu-item-title">Burrata Pesto Sandwich</h3>
+                        <p class="menu-item-description">Creamy burrata, fresh basil pesto, and roasted tomatoes.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹399</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/halloumi_sandwich.jpeg" alt="Veggie Supreme">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Halloumi & Fig Jam</h3>
+                        <p class="menu-item-description">Grilled halloumi cheese with sweet fig jam.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹429</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/truffel_cheese-melt.jpeg" alt="Spicy Chicken Burger">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Truffle Cheese Melt</h3>
+                        <p class="menu-item-description">Loaded with gooey cheese and a touch of truffle</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹449</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Quick Bites Section -->
+     <section class="menu-section" id="quick">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Quick Bites</h2>
+                <br><br>
+                <p>Crispy, snackable, and perfect for your cravings!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/truffle_fries.jpeg" alt="Classic Cheeseburger">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Bestseller</div>
+                        <h3 class="menu-item-title">Truffle Fries </h3>
+                        <p class="menu-item-description">Crunchy fries tossed with parmesan and truffle oil.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹349</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/cheese_croquettes.jpeg" alt="Veggie Supreme">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Cheese Croquettes </h3>
+                        <p class="menu-item-description">Crispy bites filled with cheese and sundried tomato.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹379</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/garlic_cheese_rolls.jpeg" alt="Spicy Chicken Burger">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Garlic Cheese Rolls</h3>
+                        <p class="menu-item-description">Soft rolls stuffed with melted garlic butter cheese.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹399</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Burgers Section -->
+    <section class="menu-section" id="burgers">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Burgers</h2>
+                <br><br>
+                <p>Juicy and flavorful burgers for every taste!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/portobello_swiss.jpeg" alt="Classic Cheeseburger">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Bestseller</div>
+                        <h3 class="menu-item-title">Portobello Swiss Burger</h3>
+                        <p class="menu-item-description">Grilled portobello mushroom with Swiss cheese.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹299</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/smoky_panner_burger.jpeg" alt="Veggie Supreme">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Smoky Paneer Burger</h3>
+                        <p class="menu-item-description">Spicy grilled paneer with smoky mayo.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹329</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/helloumi_pesto.jpeg" alt="Spicy Chicken Burger">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Halloumi Pesto Burger</h3>
+                        <p class="menu-item-description">Grilled halloumi, pesto, and sundried tomatoes.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹349</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Desserts Section -->
+     <section class="menu-section" id="desserts">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Desserts</h2>
+                <br><br>
+                <p>Sweet indulgence for the perfect ending!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/molten_chocolate_lava.jpeg" alt="Classic Cheeseburger">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Bestseller</div>
+                        <h3 class="menu-item-title">Molten Chocolate Lava Cake</h3>
+                        <p class="menu-item-description">Rich chocolate cake with a gooey center.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹249</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/triramisu.jpeg" alt="Veggie Supreme">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Classic Tiramisu</h3>
+                        <p class="menu-item-description">Soft coffee-soaked layers with creamy mascarpone.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹299</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/basque_burnt.jpeg" alt="Spicy Chicken Burger">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Basque Burnt Cheesecake</h3>
+                        <p class="menu-item-description"> Caramelized, creamy, and full of flavor.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹329</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Appetizers Section -->
+     <section class="menu-section" id="appetizers">
+        <div class="container">
+            <div class="section-header animate-fade-in">
+                <h2>Appetizers</h2>
+                <br><br>
+                <p>Crunchy, cheesy, and packed with bold flavors!</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item glass animate-fade-in-up">
+                    <div class="menu-item-image">
+                        <img src="img/menu/crispy-chilli_panner.jpeg" alt="Classic Cheeseburger">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-badge">Bestseller</div>
+                        <h3 class="menu-item-title">Crispy Chili Paneer</h3>
+                        <p class="menu-item-description">Spicy, crispy paneer tossed in a flavorful sauce.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹399</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/brie_cheese_bites.jpeg" alt="Veggie Supreme">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Brie Cheese Bites</h3>
+                        <p class="menu-item-description">Crispy bites of brie cheese served with a dip.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹449</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="menu-item-image">
+                        <img src="img/menu/miso_soya_chaap.jpeg" alt="Spicy Chicken Burger">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Miso Glazed Soya Chaap</h3>
+                        <p class="menu-item-description">Smoky soya chaap coated in a miso glaze.</p>
+                        <div class="menu-item-actions">
+                            <div class="menu-item-price">₹479</div>
+                            <button class="add-to-cart"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="img/logo.png" alt="Cafe Cactus Logo">
+                    <h3>Cafe Cactus</h3>
+                    <p>Delivering delicious meals with a focus on quality ingredients and exceptional taste.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Browse Menu</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> SBR, Ahmedabad</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@cafecactus.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© Cafe Cactus Copyright 2025, All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart">
+        <div class="cart-btn-floating">
+            <i class="fas fa-shopping-cart"></i>
+            <!-- <div class="cart-count-floating">5</div> -->
+        </div>
+    </div>
+   
+</body>
+
+</html>

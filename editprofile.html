@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | Cafe Cactus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #68b984;
+            --accent: #ff7e5f;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --gold: #d4af37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #e8f0fe);
+            color: var(--dark);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Glass Effect Utility Class */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: #3D0301;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .promo-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: rotate(10deg);
+        }
+
+        .logo h1 {
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: whitesmoke;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #EDE8D0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #EDE8D0;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .user-cart {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .cart-btn {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-btn .glass {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-btn:hover .glass {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-count {
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .user-profile {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-profile .glass {
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover .glass {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Edit Profile Section Styles */
+        .edit-profile-section {
+            padding: 160px 0 80px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .profile-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .save-all-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .save-all-btn:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .cancel-btn {
+            background: transparent;
+            color: var(--dark);
+            border: 1px solid var(--dark);
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .cancel-btn:hover {
+            background: var(--dark);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .profile-image-edit {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-preview {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid white;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .edit-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-preview:hover .edit-overlay,
+        .avatar-preview:hover .edit-overlay {
+            opacity: 1;
+        }
+
+        .upload-btn {
+            background: white;
+            color: var(--dark);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .image-controls {
+            padding: 70px 20px 20px;
+            text-align: center;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(104, 185, 132, 0.2);
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .toggle-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .toggle-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .toggle-info p {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--primary);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(24px);
+        }
+
+        .table-preference {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .table-preference-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .table-preference-header h4 {
+            margin: 0;
+        }
+
+        .table-preference p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .add-new-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .add-new-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Upload preview styles */
+        .upload-preview {
+            display: flex;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .upload-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .upload-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-image .remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Discard changes modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .modal-text {
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .modal-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .modal-btn.primary:hover {
+            background: var(--accent);
+        }
+
+        .modal-btn.secondary {
+            background: transparent;
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+
+        .modal-btn.secondary:hover {
+            background: #f5f5f5;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .footer-links h3,
+        .footer-contact h3 {
+            position: relative;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links h3::after,
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-links a:hover::before {
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            margin-bottom: 15px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .edit-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .action-btns {
+                display: flex;
+                width: 100%;
+            }
+
+            .cancel-btn,
+            .save-all-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="promo-bar">
+            Free delivery on orders above $30. Use code: FREESHIP
+        </div>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="img/logo.png" alt="CafeCactus Logo">
+                    <h1 style="color: whitesmoke;">Cafe Cactus</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="#">Orders</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="user-cart">
+                    <a href="cart.html" style="text-decoration: none;">
+                        <div class="cart-btn">
+                            <div class="glass">
+                                <i class="fas fa-shopping-cart" style="color: whitesmoke;"></i>
+                                <span style="color: whitesmoke;">Cart</span>
+                                <!-- <div class="cart-count">3</div> -->
+                            </div>
+                        </div>
+                    </a>
+                    <div class="user-profile">
+                        <div class="glass">
+                            <i class="fas fa-user" style="color: whitesmoke;"></i>
+                            <span style="color: whitesmoke;" id="username">Profile</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Edit Profile Section -->
+    <section class="edit-profile-section">
+        <div class="container">
+            <div class="profile-header animate-fade-in">
+                <h1>Edit Profile</h1>
+                <div class="action-btns">
+                    <button class="cancel-btn" onclick="showDiscardModal()">Cancel</button>
+                    <button class="save-all-btn">
+                        <i class="fas fa-save"></i>
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+
+            <div class="edit-container animate-fade-in-up">
+                <!-- Profile Image Edit -->
+                <div class="profile-image-edit">
+                    <div class="image-preview">
+                        <img src="/api/placeholder/400/250" alt="Profile Cover">
+                        <div class="edit-overlay">
+                            <button class="upload-btn">
+                                <i class="fas fa-camera"></i>
+                                Change Cover
+                            </button>
+                        </div>
+                        <div class="avatar-preview">
+                            <img src="/api/placeholder/100/100" alt="User Avatar">
+                            <div class="edit-overlay">
+                                <button class="upload-btn">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-controls">
+                        <div class="profile-completion">
+                            <div class="completion-progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="completion-text">32%</div>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: #777;">
+                            Complete your profile to enhance your dining experience
+                        </p>
+
+                        <div class="membership-badge" style="margin-top: 20px;">
+                            <div class="badge-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="badge-details">
+                                <div class="badge-title">Gold Member</div>
+                                <div class="badge-info">Since January 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Form -->
+                <div class="profile-form">
+                    <!-- Basic Info Card -->
+                    <div class="form-card animate-fade-in-up">
+                        <div class="card-header">
+                            <h3 class="card-title">Basic Information</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-grid">
+                                <div class="input-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" id="fullName" value="Minark">
+                                </div>
+                                <div class="input-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" value="@minark">
+                                </div>
+                                <div class="input-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" value="minark@example.com">
+                                </div>
+                                <div class="input-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone" value="+91 9876543210">
+                                </div>
+                                <div class="input-group">
+                                    <label for="dob">Date of Birth</label>
+                                    <input type="date" id="dob" value="1995-03-12">
+                                </div>
+                                <div class="input-group">
+                                    <label for="location">Location</label>
+                                    <input type="text" id="location" value="Ahmedabad, Gujarat">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About Me Card -->
+                    <div class="form-card animate-fade-in-up">
+                        <div class="card-header">
+                            <h3 class="card-title">About Me</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="input-group">
+                                <label for="shortBio">Short Bio</label>
+                                <textarea id="shortBio"
+                                    rows="4">Hi there! I'm Minark, a food enthusiast who loves trying new cuisines. I've been a FoodVilla customer for over a year now and enjoy collecting loyalty points to get those sweet discounts! My favorite cuisines are Italian and North Indian. When I'm not ordering food, I'm probably experimenting with recipes at home.</textarea>
+                            </div>
+                            <div class="input-group">
+                                <label for="favoriteFood">Favorite Cuisines</label>
+                                <select id="favoriteFood" multiple>
+                                    <option value="italian" selected>Italian</option>
+                                    <option value="north-indian" selected>North Indian</option>
+                                    <option value="chinese">Chinese</option>
+                                    <option value="mexican">Mexican</option>
+                                    <option value="thai">Thai</option>
+                                    <option value="japanese">Japanese</option>
+                                </select>
+                                <small style="display: block; margin-top: 5px; color: #777;">Hold Ctrl (or Cmd) to
+                                    select multiple options</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences Card -->
+                    <div class="form-card animate-fade-in-up">
+                        <div class="card-header">
+                            <h3 class="card-title">Preferences</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="toggle-group">
+                                <div class="toggle-info">
+                                    <h4>Veg Mode</h4>
+                                    <p>Show only vegetarian restaurants and dishes</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-group">
+                                <div class="toggle-info">
+                                    <h4>Email Notifications</h4>
+                                    <p>Receive order updates and promotions via email</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-group">
+                                <div class="toggle-info">
+                                    <h4>SMS Alerts</h4>
+                                    <p>Get delivery updates via SMS</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-group">
+                                <div class="toggle-info">
+                                    <h4>Table Booking Reminders</h4>
+                                    <p>Receive reminders before your table reservation</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-group">
+                                <div class="toggle-info">
+                                    <h4>Special Offers</h4>
+                                    <p>Receive notifications about promotions and deals</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                 
+
+                                        <script>
+
+                                            const fetchUserName = localStorage.getItem("username")
+                                            document.getElementById("username").innerHTML = fetchUserName;
+                                        </script>

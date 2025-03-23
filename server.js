@@ -9,6 +9,9 @@ app.use(cors());
 
 const authRoutes = require("./js/routes/auth");
 app.use("/auth", authRoutes);
+const menuRoutes = require("./js/routes/menuRoutes");
+app.use("/api", menuRoutes);
+
 
 
 const PORT = process.env.PORT || 5000;
@@ -21,7 +24,7 @@ const PORT = process.env.PORT || 5000;
 //   .catch(err => console.log(err));
 
 
-mongoose.connect("mongodb+srv://aaravhalvadia:jWtYWJUkiub4REQo@cluster0.sz2lg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -35,5 +38,7 @@ mongoose.connect("mongodb+srv://aaravhalvadia:jWtYWJUkiub4REQo@cluster0.sz2lg.mo
 app.get("/", (req, res) => {
     res.send("Cafe Cactus Backend is running...");
 });
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -334,30 +334,49 @@
     }
 }
 
-.toast {
+  /* Toast container */
+  .toast {
+    visibility: hidden;
+    min-width: 280px;
+    max-width: 90%;
+    background: #222;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 16px;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #4CAF50; /* Green background for success */
-    color: white;
-    padding: 16px 20px;
-    border-radius: 4px;
-    max-width: 350px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    transform: translateY(100px);
-    transition: opacity 0.3s, transform 0.3s;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(50px);
     z-index: 1000;
-}
+    opacity: 0;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
 
-.toast.show {
+  /* Show class for animation */
+  .toast.show {
+    visibility: visible;
     opacity: 1;
-    transform: translateY(0);
-}
+    transform: translateX(-50%) translateY(0);
+  }
 
-.toast.error {
-    background-color: #f44336; /* Red background for error */
-}
+  /* Progress bar */
+ /* Progress bar */
+ .toast .progress-bar {
+    height: 4px;
+    width: 100%;
+    background: #4caf50;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: progressBar 5s linear forwards;
+  }
+  @keyframes progressBar {
+    from { width: 100%; }
+    to { width: 0%; }
+  }
+
 
 /* Button styling */
 .checkout-btn {

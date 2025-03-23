@@ -1,0 +1,26 @@
+{
+    "_id": "67e00117b23438294bb214fb",
+    "name": "Truffle Cheese Paratha ",
+    "price": "₹179",
+    "image": "https://cafecactus.netlify.app/img/Rectangle%208.png",
+    "category": "Breakfast",
+    "description": "Flaky paratha stuffed with a rich truffle-infused cheese blend."
+}
+
+{
+    "_id": "67e00117b23438294bb214fb",
+    "name": "Truffle Cheese Paratha ",
+    "price": "₹179",
+    "image": "https://cafecactus.netlify.app/img/Rectangle%208.png",
+    "category": "Breakfast",
+    "description": "Flaky paratha stuffed with a rich truffle-infused cheese blend."
+}
+
+{
+    "_id": "67e00117b23438294bb214fb" ,
+    "name": "Avocado Toast with Feta",
+    "price": "₹549",
+    "image": "https://cafecactus.netlify.app/img/menu/avacado_toast.jpegn",
+    "category": "Pizza",
+    "description": "Creamy burrata with sundried tomatoes and basil pesto."
+  }

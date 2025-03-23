@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cafe Cactus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="/css/homepage.css"/>
+    <link rel="stylesheet" href="/css/homepage.css" />
     <link rel="icon" sizes="192x192" href="/img/logo.png">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
 </head>
 
 <body>
@@ -37,22 +38,24 @@
                 </nav>
                 <div class="user-cart">
                     <a href="/cart.html" style="text-decoration: none;">
-                    <div class="cart-btn">
-                        <div class="glass">
-                            <i class="fas fa-shopping-cart" style="color: whitesmoke;"></i>
-                            <span  style="color: whitesmoke;">Cart</span>
-                            <!-- <div class="cart-count">5</div> -->
-                        </div>
+                        <div class="cart-btn">
+                            <div class="glass">
+                                <i class="fas fa-shopping-cart" style="color: whitesmoke;"></i>
+                                <span style="color: whitesmoke;">Cart</span>
+                                <!-- <div class="cart-count">5</div> -->
+                            </div>
                     </a>
+                </div>
+                <div class="user-profile">
+                    <a href="/userprofile.html" style="text-decoration: none;">
+                    <div class="glass">
+                        <i class="fas fa-user" style="color: whitesmoke;"></i>
+                        <span style="color: whitesmoke;" id="username">Aarav</span>
                     </div>
-                    <div class="user-profile">
-                        <div class="glass">
-                            <i class="fas fa-user" style="color: whitesmoke;"></i>
-                            <span style="color: whitesmoke;">Aarav</span>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
+        </div>
         </div>
     </header>
 
@@ -153,7 +156,7 @@
                     <div class="category-image glass">
                         <img src="img/Rectangle 8.png" alt="Sandwiches">
                     </div>
-                    <div class="category-name">Lasagne</div>
+                    <div class="category-name">Quick Bites</div>
                 </div>
             </div>
         </div>
@@ -234,7 +237,7 @@
 
     <script>
         // Scroll animation for header
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
                 header.classList.add('header-scroll');
@@ -242,7 +245,7 @@
                 header.classList.remove('header-scroll');
             }
         });
-        
+
         // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -252,7 +255,7 @@
                 }
             });
         }, { threshold: 0.1 });
-        
+
         // Apply to all animate elements
         document.querySelectorAll('.animate-fade-in, .animate-fade-in-up').forEach(el => {
             el.style.opacity = 0;
@@ -261,6 +264,22 @@
             }
             observer.observe(el);
         });
+    </script>
+
+    <script>
+        // const user = JSON.parse(localStorage.getItem("user"));
+        // console.log(user);
+
+        const fetchUserName = localStorage.getItem("username")
+        document.getElementById("username").innerHTML = fetchUserName;
+        // if (!user) {
+        //     // Redirect to login if no user is found
+        //     window.location.href = "login.html";
+        // } else {
+        //     // Display user info
+        //     document.getElementById("username").innerHTML = user.email;
+        //     //document.getElementById("email").innerText = user.email;
+        // }
     </script>
 </body>
 
