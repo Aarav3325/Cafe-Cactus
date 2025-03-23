@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart | Restaurant Name</title>
-    <link rel="stylesheet" href="/css/newmenu.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/newmenu.css" />
+    <link rel="icon" sizes="192x192" href="/img/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/cart.css">
 
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -33,36 +37,39 @@
                     </ul>
                 </nav>
                 <div class="user-cart">
-                    <div class="cart-btn">
-                        <div class="glass">
-                            <i class="fas fa-shopping-cart" style="color: whitesmoke;"></i>
-                            <span style="color: whitesmoke;">Cart</span>
-                            <div class="cart-count">3</div>
-                        </div>
-                    </div>
-                    <div class="user-profile">
-                        <div class="glass">
-                            <i class="fas fa-user"  style="color: whitesmoke;"></i>
-                            <span style="color: whitesmoke;">Aarav</span>
-                        </div>
+                    <a href="cart.html" style="text-decoration: none;">
+                        <div class="cart-btn">
+                            <div class="glass">
+                                <i class="fas fa-shopping-cart" style="color: whitesmoke;"></i>
+                                <span style="color: whitesmoke;">Cart</span>
+                                <div class="cart-count">3</div>
+
+                            </div>
+                    </a>
+                </div>
+                <div class="user-profile">
+                    <div class="glass">
+                        <i class="fas fa-user" style="color: whitesmoke;"></i>
+                        <span style="color: whitesmoke;">Aarav</span>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
     </header>
-    
+
     <br><br>
 
     <!-- Cart Page Content -->
     <section class="cart-page">
         <div class="container">
             <div class="cart-header">
-                
+
                 <h1>Your Cart</h1>
                 <p>Review and checkout your delicious selections</p>
                 <br>
             </div>
-            
+
             <!-- Cart Items Table -->
             <div class="cart-table">
                 <table width="100%">
@@ -81,7 +88,8 @@
                         <tr>
                             <td data-label="Item">
                                 <div class="cart-item-image">
-                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food1.webp" alt="Margherita Pizza">
+                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food1.webp"
+                                        alt="Margherita Pizza">
                                 </div>
                             </td>
                             <td data-label="Details">
@@ -103,12 +111,13 @@
                                 <i class="fas fa-trash remove-item"></i>
                             </td>
                         </tr>
-                        
+
                         <!-- Cart Item 2 -->
                         <tr>
                             <td data-label="Item">
                                 <div class="cart-item-image">
-                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food2.webp" alt="Pasta Carbonara">
+                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food2.webp"
+                                        alt="Pasta Carbonara">
                                 </div>
                             </td>
                             <td data-label="Details">
@@ -130,12 +139,13 @@
                                 <i class="fas fa-trash remove-item"></i>
                             </td>
                         </tr>
-                        
+
                         <!-- Cart Item 3 -->
                         <tr>
                             <td data-label="Item">
                                 <div class="cart-item-image">
-                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food3.webp" alt="Tiramisu">
+                                    <img src="https://aarav-zomato-clone.netlify.app/assets/static/uploads/food3.webp"
+                                        alt="Tiramisu">
                                 </div>
                             </td>
                             <td data-label="Details">
@@ -160,7 +170,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Cart Summary Section -->
             <div class="cart-summary">
                 <!-- Coupon Section -->
@@ -171,7 +181,7 @@
                         <button class="apply-coupon">Apply</button>
                     </div>
                 </div>
-                
+
                 <!-- Order Summary -->
                 <div class="order-summary">
                     <h3>Order Summary</h3>
@@ -195,17 +205,17 @@
                         <span>Total</span>
                         <span>$59.37</span>
                     </div>
-                    <button class="checkout-btn">Proceed to Checkout</button>
+                    <button class="checkout-btn" onclick="showToast()">Proceed to Checkout</button>
                 </div>
             </div>
-            
+
             <!-- Continue Shopping Link -->
             <a href="menu.html" class="continue-shopping">
                 <i class="fas fa-arrow-left"></i> Continue Shopping
             </a>
         </div>
     </section>
-    
+
     <!-- Empty Cart State (hidden by default, toggle with JavaScript in real implementation) -->
     <div class="container" style="display: none;">
         <div class="cart-empty">
@@ -221,40 +231,37 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="/img/logo.png" alt="Restaurant Logo">
-                    <p>Delicious food delivered to your doorstep. We offer a wide variety of cuisines to satisfy your cravings.</p>
+                    <img src="img/logo.png" alt="Cafe Cactus Logo">
+                    <h3>Cafe Cactus</h3>
+                    <p>Delivering delicious meals with a focus on quality ingredients and exceptional taste.</p>
                 </div>
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="menu.html">Menu</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Browse Menu</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h3>Categories</h3>
+                    <h3>Information</h3>
                     <ul>
-                        <li><a href="#">Pizza</a></li>
-                        <li><a href="#">Burgers</a></li>
-                        <li><a href="#">Pasta</a></li>
-                        <li><a href="#">Desserts</a></li>
-                        <li><a href="#">Beverages</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
                     <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</p>
-                    <p><i class="fas fa-phone-alt"></i> +1 234 567 890</p>
-                    <p><i class="fas fa-envelope"></i> info@restaurant.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> SBR, Ahmedabad</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@cafecactus.com</p>
                 </div>
             </div>
-        </div>
-        <div class="copyright">
-            <div class="container">
-                © 2025 Restaurant Name. All rights reserved.
+            <div class="copyright">
+                <p>© Cafe Cactus Copyright 2025, All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -267,36 +274,93 @@
         </div>
     </div>
 
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be rendered here -->
+            <p>Your cart is currently empty</p>
+        </div>
+        <button id="checkoutBtn" class="checkout-btn">Proceed to Checkout</button>
+    </div>
+    
+    <!-- Toast component -->
+    <div id="toast" class="toast">
+        <div id="toastMessage" style="font-size: 18px;font-weight: 600;">Order placed successfully!</div>
+    </div>
+    
+   
+
     <script>
+
+        // Add this at the end of your existing script, inside the DOMContentLoaded event listener
+
+        // Show toast function
+        function showToast(message, type = 'success') {
+            toast.className = 'toast';
+
+            if (type === 'error') {
+                toast.classList.add('error');
+            }
+
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Checkout button event listener
+        checkoutBtn.addEventListener('click', function () {
+            // Simulate order processing
+            checkoutBtn.textContent = 'Processing...';
+            checkoutBtn.disabled = true;
+
+            // Simulate a short loading time
+            setTimeout(() => {
+                // Show success toast
+                showToast('Order placed successfully! Your delicious food is on the way.');
+
+                // Reset the cart (you can either clear it or redirect to a confirmation page)
+                setTimeout(() => {
+                    cartItems = [];
+                    renderCartItems();
+                    checkoutBtn.textContent = 'Proceed to Checkout';
+                    checkoutBtn.disabled = false;
+                }, 1000);
+            }, 2000);
+        });
+
         // Simple JavaScript for demonstration purposes
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Quantity buttons functionality
             const quantityBtns = document.querySelectorAll('.quantity-btn');
-            
+
             quantityBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     const input = this.parentElement.querySelector('.quantity-input');
                     let value = parseInt(input.value);
-                    
+
                     if (this.textContent === '+') {
                         value++;
                     } else if (this.textContent === '-' && value > 1) {
                         value--;
                     }
-                    
+
                     input.value = value;
                     updateTotal(this);
                 });
             });
-            
+
             // Remove item functionality
             const removeButtons = document.querySelectorAll('.remove-item');
-            
+
             removeButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     const row = this.closest('tr');
                     row.remove();
-                    
+
                     // Check if cart is empty after removing item
                     const cartItems = document.querySelectorAll('tbody tr');
                     if (cartItems.length === 0) {
@@ -305,35 +369,35 @@
                         document.querySelector('.continue-shopping').style.display = 'none';
                         document.querySelector('.cart-empty').parentElement.style.display = 'block';
                     }
-                    
+
                     updateOrderSummary();
                 });
             });
-            
+
             // Function to update item total
             function updateTotal(element) {
                 const row = element.closest('tr');
                 const price = parseFloat(row.querySelector('.item-price').textContent.replace('$', ''));
                 const quantity = parseInt(row.querySelector('.quantity-input').value);
                 const total = price * quantity;
-                
+
                 row.querySelector('.item-total').textContent = '$' + total.toFixed(2);
                 updateOrderSummary();
             }
-            
+
             // Function to update order summary
             function updateOrderSummary() {
                 const totalElements = document.querySelectorAll('.item-total');
                 let subtotal = 0;
-                
+
                 totalElements.forEach(el => {
                     subtotal += parseFloat(el.textContent.replace('$', ''));
                 });
-                
+
                 const tax = subtotal * 0.1;
                 const deliveryFee = subtotal >= 40 ? 0 : 3.99;
                 const total = subtotal + tax + deliveryFee;
-                
+
                 document.querySelector('.summary-item:nth-child(1) span:last-child').textContent = '$' + subtotal.toFixed(2);
                 document.querySelector('.summary-item:nth-child(3) span:last-child').textContent = '$' + deliveryFee.toFixed(2);
                 document.querySelector('.summary-item:nth-child(4) span:last-child').textContent = '$' + tax.toFixed(2);
@@ -342,4 +406,5 @@
         });
     </script>
 </body>
+
 </html>

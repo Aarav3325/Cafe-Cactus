@@ -1,55 +1,257 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Register</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link rel="icon" sizes="192x192" href="/img/logo.png">
-    <link rel="stylesheet" href="/css/style2.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Cafe Cactus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
    
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .signup-box {
+            background: rgba(57, 146, 103, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 90px;
+            margin-bottom: 0px;
+        }
+
+        .cafe-name {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            margin-bottom: 10px;
+            color: #f0eeed;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #fbfaf9;
+            margin-bottom: 15px;
+        }
+
+        .food-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .food-icons i {
+            font-size: 24px;
+            color: beige;
+        }
+
+        p {
+            color: #eee;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .input-field {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 12px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .input-field i {
+            color: beige;
+            margin-right: 10px;
+        }
+
+        .input-field input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            color: #000;
+        }
+
+        .input-field input:focus {
+            border: 2px solid beige;
+            box-shadow: 0 0 8px rgba(218, 165, 32, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: beige;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, background 0.3s;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: #d9c7a8;
+        }
+
+        .login-text {
+            margin-top: 15px;
+            color: #fff;
+        }
+
+        .login-text a {
+            color: beige;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .signup-box {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signup-box {
+                width: 95%;
+                padding: 1.8rem;
+            }
+
+            .cafe-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="left">
-            <h2>Register <span></span></h2>
-            <br>
-            <button>
-                <i class="fab fa-google"></i> Sign in with Google
-            </button>
-            <button>
-                <i class="fab fa-facebook-f"></i> Sign in with Facebook
-            </button>
-            <form action="/index.html"> 
-                <div>
-                <label for="email">Name</label>
-                <input id="email" required type="text" />
+    <div class="signup-container">
+        <div class="signup-box">
+            <img src="/img/logo.png" alt="Cafe Cactus Logo" class="logo">
+            <p class="cafe-name">Cafe Cactus</p>
+            <h2 class="title">Join Us!</h2>
+            <p class="tagline">Sip, Savor, and Sign Up</p>
+            <p>Create an account to place your order</p>
+            <div class="food-icons">
+                <i class="fas fa-coffee"></i>
+                <i class="fas fa-pizza-slice"></i>
+                <i class="fas fa-hamburger"></i>
             </div>
-                <div>
+            <form id="registerForm">
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <div class="input-field">
+                        <i class="fa fa-user"></i>
+                        <input type="text" id="regUsername" required placeholder="Enter your name">
+                    </div>
+                </div>
+                <div class="input-group">
                     <label for="email">Email</label>
-                    <input id="email" required type="email" placeholder="varun55@gmail.com"/>
+                    <div class="input-field">
+                        <i class="fa fa-envelope"></i>
+                        <input type="email" id="regEmail" required placeholder="Enter your email">
+                    </div>
                 </div>
-                <div>
+                <div class="input-group">
                     <label for="password">Password</label>
-                    <input id="password" required type="password" placeholder="Enter your Password"/>
+                    <div class="input-field">
+                        <i class="fa fa-lock"></i>
+                        <input type="password" id="regPassword" required
+                            placeholder="Create a password">
+                    </div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <a href="/login.html">Already have an account ? Login</a>
-                </div>
-                <button type="submit">Login</button>
+                <input type="submit" class="btn" value="Submit">
             </form>
-            <p>©2024 Cafe Cactus. All Rights Reserved.</p>
-        </div>
-        <div class="right">
-           
-            <div class="content">
-                <h2>Creating an account is easier than deciding what to eat!<span></span></h2>
-                <img src="/img/logo.png"/>
-            </div>
+            <p class="login-text">Already have an account? <a href="#">Login</a></p>
         </div>
     </div>
+
+    <script>
+        const API_URL = "http://localhost:5000/auth";
+
+        // Register Form Submission
+        document.getElementById("registerForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const username = document.getElementById("regUsername").value;
+            const email = document.getElementById("regEmail").value;
+            const password = document.getElementById("regPassword").value;
+
+            const response = await fetch(`${API_URL}/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, email, password }),
+            });
+
+            const data = await response.json();
+            alert(data.message || "Registered successfully!");
+            
+            window.location.href = "index.html";
+        });
+    </script>
 </body>
+
 </html>
