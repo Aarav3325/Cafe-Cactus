@@ -12,7 +12,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
+        .button-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: #388E3C;
+        }
+
         .confirmation-container {
             padding: 40px 20px;
             max-width: 800px;
@@ -214,16 +225,15 @@
         </div>
 
         <div class="delivery-address">
-            <h3>Delivery Address</h3>
+            <h3>Customer Details</h3>
             <p id="customerName">John Doe</p>
-            <p id="customerAddress">123 Street Name, City, Zip Code</p>
             <p id="customerPhone">+91 9876543210</p>
             <p id="customerEmail">john@example.com</p>
         </div>
 
         <div class="buttons">
             <a href="/menu.html" class="button button-secondary">Continue Shopping</a>
-            <a href="/track-order.html" class="button button-primary">Track Order</a>
+            <a id="generateBillBtn" class="button button-primary">Generate Bill</a>
         </div>
     </div>
 
@@ -349,8 +359,7 @@
                 const customer = orderData.data.customer || {};
                 const fullName = `${customer.firstName || ""} ${customer.lastName || ""}`.trim();
                 document.getElementById("customerName").textContent = fullName || "Guest";
-                document.getElementById("customerAddress").textContent = `${customer.address || ""} ${customer.city || ""} ${customer.zipCode || ""}`.trim() || "Not provided";
-                document.getElementById("customerPhone").textContent = customer.phone || "Not provided";
+               document.getElementById("customerPhone").textContent = customer.phone || "Not provided";
                 document.getElementById("customerEmail").textContent = customer.email || "Not provided";
 
                 // Order Items
@@ -376,7 +385,6 @@
                 const summaryContainer = document.getElementById("orderSummary");
                 summaryContainer.innerHTML = `
         <div class="summary-row"><span>Subtotal:</span><span>₹${(orderData.data.subtotal || 0).toFixed(2)}</span></div>
-        <div class="summary-row"><span>Delivery Fee:</span><span>₹${(orderData.data.deliveryFee || 0).toFixed(2)}</span></div>
         <div class="summary-row"><span>Tax:</span><span>₹${(orderData.data.tax || 0).toFixed(2)}</span></div>
         <div class="summary-row summary-total"><span>Total:</span><span>₹${(orderData.data.total || 0).toFixed(2)}</span></div>
     `;
@@ -411,7 +419,194 @@
                     `;
             }
         });
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const generateBillBtn = document.getElementById("generateBillBtn");
+
+            generateBillBtn.addEventListener("click", () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const orderId = urlParams.get('orderId');
+                console.log(orderId)
+
+                fetch(`http://localhost:5000/orders/${orderId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Order not found');
+                        }
+                        return response.json();
+                    })
+                    .then(orderData => {
+                        console.log(orderData)
+                        if (orderData) {
+                            generateBill(orderData);
+                        } else {
+                            showError("No order data available for bill generation.");
+                        }
+                        // Display the order data
+                        displayOrderData(orderData);
+
+                        // Save order to localStorage for future reference
+                        saveOrderToLocalStorage(orderData);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching order:', error);
+                    });
+
+
+            });
+
+            function generateBill(orderData) {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                const marginX = 20;
+                let y = 20;
+
+                const logoBase64 = '/img/logo.png'; // truncate for brevity
+
+                // ✅ Add Logo at Top Center
+                doc.addImage(logoBase64, 'PNG', 80, y, 50, 50); // (x, y, width, height)
+                y += 60;
+
+                // Title & Header
+                doc.setFontSize(22);
+                doc.setFont("helvetica", "bold");
+                doc.text("Cafe Cactus", 105, y, null, null, "center");
+                y += 10;
+
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "normal");
+                doc.text("Order Invoice", 105, y, null, null, "center");
+                y += 20;
+
+                // Order Details
+                doc.setFontSize(12);
+                doc.text(`Order ID: ${orderData.data.orderId}`, marginX, y);
+                doc.text(`Date: ${formatDate(orderData.data.orderDate)}`, marginX + 100, y);
+                y += 10;
+
+                doc.text(`Payment Method: ${orderData.data.paymentMethod}`, marginX, y);
+                doc.text(`Status: ${orderData.data.status.toUpperCase()}`, marginX + 100, y);
+                y += 15;
+
+                // Customer Info
+                const customer = orderData.data.customer || {};
+                const fullName = `${customer.firstName || ""} ${customer.lastName || ""}`.trim();
+                doc.setFont("helvetica", "bold");
+                doc.text("Customer Info:", marginX, y);
+                y += 8;
+                doc.setFont("helvetica", "normal");
+                doc.text(`Name: ${fullName || "Guest"}`, marginX, y);
+                y += 7;
+                doc.text(`Address: ${customer.address || "Not provided"}`, marginX, y);
+                y += 7;
+                doc.text(`Phone: ${customer.phone || "Not provided"}`, marginX, y);
+                y += 7;
+                doc.text(`Email: ${customer.email || "Not provided"}`, marginX, y);
+                y += 12;
+
+                // Order Items Table
+                doc.setFont("helvetica", "bold");
+                doc.text("Items Ordered:", marginX, y);
+                y += 8;
+
+                doc.setFont("helvetica", "bold");
+                doc.text("Item", marginX, y);
+                doc.text("Qty", marginX + 80, y);
+                doc.text("Price", marginX + 100, y);
+                doc.text("Total", marginX + 130, y);
+                y += 7;
+
+                doc.setFont("helvetica", "normal");
+                orderData.data.items.forEach(item => {
+                    doc.text(item.name, marginX, y);
+                    doc.text(`${item.quantity}`, marginX + 80, y);
+                    doc.text(`₹${item.price.toFixed(2)}`, marginX + 100, y);
+                    doc.text(`₹${(item.quantity * item.price).toFixed(2)}`, marginX + 130, y);
+                    y += 7;
+                });
+
+                // Order Summary
+                y += 10;
+                doc.setFont("helvetica", "bold");
+                doc.text("Summary", marginX, y);
+                y += 8;
+
+                doc.setFont("helvetica", "normal");
+                doc.text(`Subtotal: ₹${(orderData.data.subtotal || 0).toFixed(2)}`, marginX, y);
+                y += 7;
+                doc.text(`Tax: ₹${(orderData.data.tax || 0).toFixed(2)}`, marginX, y);
+                y += 7;
+
+                doc.setFont("helvetica", "bold");
+                doc.text(`Grand Total: ₹${(orderData.data.total || 0).toFixed(2)}`, marginX, y);
+                y += 15;
+
+                // Footer
+                doc.setFont("helvetica", "italic");
+                doc.setFontSize(10);
+                doc.text("Thank you for ordering from Cafe Cactus!", 105, y, null, null, "center");
+                y += 5;
+                doc.text("Need help? Contact us at support@cafecactus.com", 105, y, null, null, "center");
+
+                // Save the PDF
+                doc.save(`Bill_${orderData.data.orderId}.pdf`);
+            }
+
+
+            // function generateBill(orderData) {
+            //     const { jsPDF } = window.jspdf;
+            //     const doc = new jsPDF();
+
+            //     // Set title
+            //     doc.setFontSize(18);
+            //     doc.text("Cafe Cactus - Order Bill", 105, 20, null, null, "center");
+
+            //     // Order Info
+            //     doc.setFontSize(12);
+            //     doc.text(`Order Number: ${orderData.data.orderId}`, 20, 40);
+            //     doc.text(`Order Date: ${formatDate(orderData.data.orderDate)}`, 20, 50);
+            //     doc.text(`Payment Method: ${orderData.data.paymentMethod}`, 20, 60);
+            //     doc.text(`Order Status: ${orderData.data.status}`, 20, 70);
+
+            //     // Customer Info
+            //     const customer = orderData.data.customer || {};
+            //     const fullName = `${customer.firstName || ""} ${customer.lastName || ""}`.trim();
+            //     doc.text(`Customer Name: ${fullName || "Guest"}`, 20, 80);
+            //     doc.text(`Customer Address: ${customer.address || "Not provided"}`, 20, 90);
+            //     doc.text(`Phone: ${customer.phone || "Not provided"}`, 20, 100);
+            //     doc.text(`Email: ${customer.email || "Not provided"}`, 20, 110);
+
+            //     // Order Items
+            //     doc.text("Order Items:", 20, 120);
+            //     let yOffset = 130;
+            //     orderData.data.items.forEach(item => {
+            //         doc.text(`${item.quantity}x ${item.name} - ₹${(item.price * item.quantity).toFixed(2)}`, 20, yOffset);
+            //         yOffset += 10;
+            //     });
+
+            //     // Order Summary
+            //     doc.text(`Subtotal: ₹${(orderData.data.subtotal || 0).toFixed(2)}`, 20, yOffset + 10);
+            //     doc.text(`Tax: ₹${(orderData.data.tax || 0).toFixed(2)}`, 20, yOffset + 20);
+            //     doc.text(`Total: ₹${(orderData.data.total || 0).toFixed(2)}`, 20, yOffset + 30);
+
+            //     // Download PDF
+            //     doc.save(`Bill_${orderData.data.orderId}.pdf`);
+            // }
+
+            // Helper function to format date
+            function formatDate(dateString) {
+                try {
+                    return new Date(dateString).toLocaleString();
+                } catch (e) {
+                    return new Date().toLocaleString();
+                }
+            }
+        });
+
     </script>
+
 </body>
 
 </html>

@@ -6,10 +6,7 @@ const orderSchema = new mongoose.Schema({
         firstName: String,
         lastName: String,
         email: String,
-        phone: String,
-        address: String,
-        city: String,
-        zipCode: String
+        phone: String
     },
     items: [{
         id: String,
@@ -20,7 +17,6 @@ const orderSchema = new mongoose.Schema({
     instructions: String,
     paymentMethod: String,
     subtotal: Number,
-    deliveryFee: Number,
     tax: Number,
     total: Number,
     status: String,

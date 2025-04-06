@@ -56,10 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 firstName: formData.get("firstName"),
                 lastName: formData.get("lastName"),
                 email: formData.get("email"),
-                phone: formData.get("phone"),
-                address: formData.get("address"),
-                city: formData.get("city"),
-                zipCode: formData.get("zipCode")
+                phone: formData.get("phone")
             },
             items: cart.map(item => ({
                 id: item.id,
@@ -70,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
             instructions: formData.get("instructions"),
             paymentMethod: formData.get("paymentMethod"),
             subtotal: calculateSubtotal(),
-            deliveryFee: 30,
             tax: calculateSubtotal() * 0.05,
             total: calculateTotal(),
             status: "pending",
@@ -127,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Calculate totals
         const subtotal = calculateSubtotal();
-        const deliveryFee = 30;
         const tax = subtotal * 0.05; // 5% tax
         const total = calculateTotal();
         
@@ -145,10 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="summary-item">
                 <span>Subtotal</span>
                 <span>₹${subtotal.toFixed(2)}</span>
-            </div>
-            <div class="summary-item">
-                <span>Delivery Fee</span>
-                <span>₹${deliveryFee.toFixed(2)}</span>
             </div>
             <div class="summary-item">
                 <span>Tax (5%)</span>
@@ -171,9 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function calculateTotal() {
         const subtotal = calculateSubtotal();
-        const deliveryFee = 30;
+        
         const tax = subtotal * 0.05; // 5% tax
-        return subtotal + deliveryFee + tax;
+        return subtotal + tax;
     }
     
     function updateCartCount() {

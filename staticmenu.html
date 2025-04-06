@@ -339,9 +339,9 @@
                     return total + (price * item.quantity);
                 }, 0);
                 
-                const deliveryFee = 30;
+              
                 const tax = subtotal * 0.05; // 5% tax
-                const total = subtotal + deliveryFee + tax;
+                const total = subtotal + tax;
                 
                 // Render cart with items
                 cartContentElement.innerHTML = `
@@ -385,10 +385,7 @@
                                     <span>Subtotal</span>
                                     <span>₹${subtotal.toFixed(2)}</span>
                                 </div>
-                                <div class="summary-item">
-                                    <span>Delivery Fee</span>
-                                    <span>₹${deliveryFee.toFixed(2)}</span>
-                                </div>
+
                                 <div class="summary-item">
                                     <span>Tax (5%)</span>
                                     <span>₹${tax.toFixed(2)}</span>

@@ -60,3 +60,4 @@ function deleteOrder(orderId) {
 
 document.getElementById("searchInput").addEventListener("input", loadAllOrders);
 window.onload = loadAllOrders;
+
