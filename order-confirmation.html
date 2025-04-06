@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Cafe Cactus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" sizes="192x192" href="/img/logo.png" />
+    <link rel="stylesheet" href="/css/newmenu.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .confirmation-container {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .success-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .success-icon i {
+            font-size: 80px;
+            color: #4CAF50;
+        }
+
+        .confirmation-message {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .confirmation-message h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .order-details {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .order-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .order-info-item h4 {
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .order-info-item p {
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        .order-items {
+            margin-bottom: 30px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-quantity {
+            font-weight: 500;
+            margin-right: 15px;
+        }
+
+        .item-name {
+            flex: 1;
+        }
+
+        .item-price {
+            font-weight: 500;
+        }
+
+        .order-summary {
+            margin-top: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-total {
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-top: 15px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+
+        .delivery-address {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .button-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: #388E3C;
+        }
+
+        .button-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .button-secondary:hover {
+            background-color: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .order-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="confirmation-container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+
+        <div class="confirmation-message">
+            <h2>Order Confirmed!</h2>
+            <p>Thank you for your order. We've received your order and will begin preparing it soon.</p>
+        </div>
+
+        <div class="order-details">
+            <div class="order-info">
+                <div class="order-info-item">
+                    <h4>Order Number</h4>
+                    <p id="orderNumber">CC-000000</p>
+                </div>
+
+                <div class="order-info-item">
+                    <h4>Order Date</h4>
+                    <p id="orderDate">April 4, 2025</p>
+                </div>
+
+                <div class="order-info-item">
+                    <h4>Payment Method</h4>
+                    <p id="paymentMethod">Cash on Delivery</p>
+                </div>
+
+                <div class="order-info-item">
+                    <h4>Order Status</h4>
+                    <p id="orderStatus">Processing</p>
+                </div>
+            </div>
+
+            <h3>Order Items</h3>
+            <div class="order-items" id="orderItems">
+                <!-- Order items will be populated dynamically -->
+            </div>
+
+            <div class="order-summary" id="orderSummary">
+                <!-- Order summary will be populated dynamically -->
+            </div>
+        </div>
+
+        <div class="delivery-address">
+            <h3>Delivery Address</h3>
+            <p id="customerName">John Doe</p>
+            <p id="customerAddress">123 Street Name, City, Zip Code</p>
+            <p id="customerPhone">+91 9876543210</p>
+            <p id="customerEmail">john@example.com</p>
+        </div>
+
+        <div class="buttons">
+            <a href="/menu.html" class="button button-secondary">Continue Shopping</a>
+            <a href="/track-order.html" class="button button-primary">Track Order</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get order ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+
+            console.log(orderId)
+
+            if (orderId) {
+                // Try to get order data from localStorage first (as fallback)
+                const orderData = getOrderFromLocalStorage(orderId);
+
+                if (orderData) {
+                    // If order data exists in localStorage, display it
+                    displayOrderData(orderData);
+                } else {
+                    // Fetch order details from the server
+                    fetch(`http://localhost:5000/orders/${orderId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Order not found');
+                            }
+                            return response.json();
+                        })
+                        .then(orderData => {
+                            console.log(orderData)
+                            // Display the order data
+                            displayOrderData(orderData);
+
+                            // Save order to localStorage for future reference
+                            saveOrderToLocalStorage(orderData);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching order:', error);
+
+                            // Try to reconstruct order from cart if it exists
+                            const reconstructedOrder = reconstructOrderFromCart(orderId);
+                            if (reconstructedOrder) {
+                                displayOrderData(reconstructedOrder);
+                            } else {
+                                showError('Failed to load order details. Please check your order number.');
+                            }
+                        });
+                }
+            } else {
+                showError('Order ID not found. Please check your URL.');
+            }
+
+            function getOrderFromLocalStorage(orderId) {
+                // Try to get order from localStorage
+                const savedOrder = localStorage.getItem(`order_${orderId}`);
+                return savedOrder ? JSON.parse(savedOrder) : null;
+            }
+
+            function saveOrderToLocalStorage(orderData) {
+                // Save order to localStorage
+                localStorage.setItem(`order_${orderData.orderId}`, JSON.stringify(orderData));
+            }
+
+            function reconstructOrderFromCart(orderId) {
+                // Get cart data from localStorage
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                if (cart.length === 0) return null;
+
+                // Get user details if available
+                const username = localStorage.getItem("username") || "Customer";
+
+                // Calculate totals
+                const subtotal = cart.reduce((total, item) => {
+                    const price = parseFloat(item.price.replace(/[^\d.]/g, ''));
+                    return total + (price * item.quantity);
+                }, 0);
+
+                const deliveryFee = 30;
+                const tax = subtotal * 0.05; // 5% tax
+                const total = subtotal + deliveryFee + tax;
+
+                // Create reconstructed order object
+                return {
+                    orderId: orderId || `CC-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`,
+                    orderDate: new Date().toISOString(),
+                    status: "Processing",
+                    paymentMethod: "Cash on Delivery",
+                    subtotal: subtotal,
+                    deliveryFee: deliveryFee,
+                    tax: tax,
+                    total: total,
+                    items: cart.map(item => ({
+                        name: item.name,
+                        quantity: item.quantity,
+                        price: parseFloat(item.price.replace(/[^\d.]/g, ''))
+                    })),
+                    customer: {
+                        firstName: username,
+                        lastName: "",
+                        address: "Address will be confirmed",
+                        city: "",
+                        zipCode: "",
+                        phone: "",
+                        email: ""
+                    }
+                };
+            }
+
+            function displayOrderData(orderData) {
+                console.log("Order data received:", orderData.data.status);
+
+                if (!orderData) {
+                    showError("Failed to load order details. Please check your order number.");
+                    return;
+                }
+
+                // Order info
+                document.getElementById("orderNumber").textContent = orderData.data.orderId || "N/A";
+                document.getElementById("orderDate").textContent = formatDate(orderData.data.orderDate);
+                document.getElementById("paymentMethod").textContent = orderData.data.paymentMethod.toUpperCase() || "Not Provided";
+                document.getElementById("orderStatus").textContent = orderData.data.status.toUpperCase() || "Pending";
+
+                // Customer Info
+                const customer = orderData.data.customer || {};
+                const fullName = `${customer.firstName || ""} ${customer.lastName || ""}`.trim();
+                document.getElementById("customerName").textContent = fullName || "Guest";
+                document.getElementById("customerAddress").textContent = `${customer.address || ""} ${customer.city || ""} ${customer.zipCode || ""}`.trim() || "Not provided";
+                document.getElementById("customerPhone").textContent = customer.phone || "Not provided";
+                document.getElementById("customerEmail").textContent = customer.email || "Not provided";
+
+                // Order Items
+                const itemsContainer = document.getElementById("orderItems");
+                itemsContainer.innerHTML = "";
+
+                if (Array.isArray(orderData.data.items) && orderData.data.items.length > 0) {
+                    orderData.data.items.forEach(item => {
+                        const itemElement = document.createElement("div");
+                        itemElement.classList.add("order-item");
+                        itemElement.innerHTML = `
+                <span class="item-quantity">${item.quantity}x</span>
+                <span class="item-name">${item.name}</span>
+                <span class="item-price">₹${(item.price * item.quantity).toFixed(2)}</span>
+            `;
+                        itemsContainer.appendChild(itemElement);
+                    });
+                } else {
+                    itemsContainer.innerHTML = `<p>No items found in this order.</p>`;
+                }
+
+                // Order Summary
+                const summaryContainer = document.getElementById("orderSummary");
+                summaryContainer.innerHTML = `
+        <div class="summary-row"><span>Subtotal:</span><span>₹${(orderData.data.subtotal || 0).toFixed(2)}</span></div>
+        <div class="summary-row"><span>Delivery Fee:</span><span>₹${(orderData.data.deliveryFee || 0).toFixed(2)}</span></div>
+        <div class="summary-row"><span>Tax:</span><span>₹${(orderData.data.tax || 0).toFixed(2)}</span></div>
+        <div class="summary-row summary-total"><span>Total:</span><span>₹${(orderData.data.total || 0).toFixed(2)}</span></div>
+    `;
+            }
+
+
+
+            function formatDate(dateString) {
+                try {
+                    return new Date(dateString).toLocaleString();
+                } catch (e) {
+                    return new Date().toLocaleString();
+                }
+            }
+
+            function capitalizeFirstLetter(string) {
+                if (!string) return "N/A";
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
+
+            function showError(message) {
+                const confirmationContainer = document.querySelector('.confirmation-container');
+                confirmationContainer.innerHTML = `
+                        <div class="error-message" style="text-align: center; color: #F44336;">
+                            <i class="fas fa-exclamation-circle" style="font-size: 60px; margin-bottom: 20px;"></i>
+                            <h2>Order Not Found</h2>
+                            <p>${message}</p>
+                            <div class="buttons" style="margin-top: 30px;">
+                                <a href="/menu.html" class="button button-primary">Return to Menu</a>
+                            </div>
+                        </div>
+                    `;
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -12,6 +12,10 @@ app.use("/auth", authRoutes);
 const menuRoutes = require("./js/routes/menuRoutes");
 app.use("/api", menuRoutes);
 
+const orderRoutes = require('./js/routes/orders');
+// Routes
+app.use('/orders', orderRoutes);
+
 
 
 const PORT = process.env.PORT || 5000;
@@ -38,7 +42,6 @@ mongoose.connect(process.env.MONGO_URI, {
 app.get("/", (req, res) => {
     res.send("Cafe Cactus Backend is running...");
 });
-
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

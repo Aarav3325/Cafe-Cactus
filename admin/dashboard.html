@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafe Management Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #818cf8;
+      --secondary: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --dark: #1f2937;
+      --gray-light: #f3f4f6;
+      --gray: #e5e7eb;
+      --text: #374151;
+      --text-light: #6b7280;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f9fafb;
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background-color: var(--dark);
+      color: var(--white);
+      width: 250px;
+      padding: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-header {
+      padding: 0 1.5rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-header p {
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
+
+    .nav-links {
+      list-style: none;
+      padding: 1.5rem 0;
+    }
+
+    .nav-item {
+      padding: 0.875rem 1.5rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-item.active {
+      background-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .nav-item i {
+      margin-right: 0.75rem;
+      font-size: 1.125rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      margin-left: 250px;
+      width: calc(100% - 250px);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn i {
+      margin-right: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-light);
+    }
+
+    .btn-success {
+      background-color: var(--secondary);
+      color: var(--white);
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+      color: var(--white);
+    }
+
+    .btn-warning {
+      background-color: var(--warning);
+      color: var(--white);
+    }
+
+    .card {
+      background-color: var(--white);
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--gray);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--gray-light);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    tr:not(:last-child) td {
+      border-bottom: 1px solid var(--gray);
+    }
+
+    .status {
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .status-pending {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .status-accepted {
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .status-preparing {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-delivered {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .status-cancelled {
+      background-color: #f3f4f6;
+      color: #4b5563;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--white);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      display: none;
+    }
+
+    .modal {
+      background-color: var(--white);
+      border-radius: 0.5rem;
+      width: 100%;
+      max-width: 500px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--gray);
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--gray);
+      border-radius: 0.375rem;
+      font-size: 1rem;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-secondary {
+      background-color: var(--gray);
+      color: var(--text);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background-color: var(--gray-light);
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .order-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed var(--gray);
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: var(--white);
+      border-radius: 0.375rem;
+      padding: 0.5rem 1rem;
+      width: 300px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-bar i {
+      color: var(--text-light);
+      margin-right: 0.5rem;
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 0.875rem;
+    }
+
+    .status-select {
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.375rem;
+      border: 1px solid var(--gray);
+      font-size: 0.875rem;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+      gap: 0.25rem;
+    }
+
+    .page-link {
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.25rem;
+      border: 1px solid var(--gray);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .page-link:hover,
+    .page-link.active {
+      background-color: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>Cafe Manager</h1>
+      <p>Dashboard</p>
+    </div>
+    <ul class="nav-links">
+      <li class="nav-item active" data-section="dashboard">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item" data-section="orders">
+        <i class="fas fa-clipboard-list"></i>
+        <span>Orders</span>
+      </li>
+      <li class="nav-item" data-section="menu">
+        <i class="fas fa-utensils"></i>
+        <span>Menu</span>
+      </li>
+      <li class="nav-item" data-section="customers">
+        <i class="fas fa-users"></i>
+        <span>Customers</span>
+      </li>
+      <li class="nav-item" data-section="settings">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <!-- Dashboard Section -->
+    <section class="section active" id="dashboard">
+      <div class="header">
+        <h1>Dashboard</h1>
+        <div class="header-actions">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search...">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Today's Summary</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+
+          <!-- Total Orders -->
+          <div style="background-color: #e0f2fe; padding: 1.25rem; border-radius: 0.5rem;">
+            <div style="font-size: 0.875rem; color: #0369a1; margin-bottom: 0.5rem;">Total Orders</div>
+            <div id="totalOrdersCount" style="font-size: 1.5rem; font-weight: 700;">0</div>
+            <div style="font-size: 0.75rem; color: #0369a1; margin-top: 0.5rem;">
+              <i class="fas fa-arrow-up"></i> Compared to yesterday
+            </div>
+          </div>
+
+          <!-- Revenue -->
+          <div style="background-color: #d1fae5; padding: 1.25rem; border-radius: 0.5rem;">
+            <div style="font-size: 0.875rem; color: #065f46; margin-bottom: 0.5rem;">Revenue</div>
+            <div id="revenueAmount" style="font-size: 1.5rem; font-weight: 700;">₹0.00</div>
+            <div style="font-size: 0.75rem; color: #065f46; margin-top: 0.5rem;">
+              <i class="fas fa-arrow-up"></i> Compared to yesterday
+            </div>
+          </div>
+
+          <!-- Pending Orders -->
+          <div style="background-color: #fef3c7; padding: 1.25rem; border-radius: 0.5rem;">
+            <div style="font-size: 0.875rem; color: #92400e; margin-bottom: 0.5rem;">Pending Orders</div>
+            <div id="pendingOrdersCount" style="font-size: 1.5rem; font-weight: 700;">0</div>
+            <div style="font-size: 0.75rem; color: #92400e; margin-top: 0.5rem;">
+              <i class="fas fa-exclamation-circle"></i> Needs attention
+            </div>
+          </div>
+
+          <!-- New Customers -->
+          <div style="background-color: #fee2e2; padding: 1.25rem; border-radius: 0.5rem;">
+            <div style="font-size: 0.875rem; color: #b91c1c; margin-bottom: 0.5rem;">New Customers</div>
+            <div id="newCustomersCount" style="font-size: 1.5rem; font-weight: 700;">0</div>
+            <div style="font-size: 0.75rem; color: #b91c1c; margin-top: 0.5rem;">
+              <i class="fas fa-arrow-up"></i> Compared to yesterday
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Recent Orders</h2>
+          <button class="btn btn-primary" onclick="switchSection('orders')">
+            <i class="fas fa-eye"></i> View All
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="recentOrdersBody">
+            <!-- Recent orders will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Popular Items</h2>
+          <button class="btn btn-primary" onclick="switchSection('menu')">
+            <i class="fas fa-utensils"></i> Manage Menu
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Orders Today</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cappuccino</td>
+              <td>Coffee</td>
+              <td>₹120</td>
+              <td>18</td>
+            </tr>
+            <tr>
+              <td>Chocolate Croissant</td>
+              <td>Pastry</td>
+              <td>₹90</td>
+              <td>15</td>
+            </tr>
+            <tr>
+              <td>Avocado Toast</td>
+              <td>Breakfast</td>
+              <td>₹180</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>Espresso</td>
+              <td>Coffee</td>
+              <td>₹80</td>
+              <td>10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Orders Section -->
+    <section class="section" id="orders">
+      <div class="header">
+        <h1>Orders Management</h1>
+        <div class="header-actions">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search orders...">
+          </div>
+          <button class="btn btn-primary" onclick="openModal('addOrderModal')">
+            <i class="fas fa-plus"></i> New Order
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">All Orders</h2>
+          <div>
+            <select id="statusFilter" class="status-select">
+              <option value="all">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="preparing">Preparing</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody">
+            <!-- Orders will be loaded here -->
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span class="page-link">1</span>
+          <span class="page-link">2</span>
+          <span class="page-link">3</span>
+          <span class="page-link">...</span>
+          <span class="page-link">10</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="section" id="menu">
+      <div class="header">
+        <h1>Menu Management</h1>
+        <div class="header-actions">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search menu items...">
+          </div>
+          <button class="btn btn-primary" onclick="openModal('addMenuItemModal')">
+            <i class="fas fa-plus"></i> Add Item
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Menu Items</h2>
+          <div>
+            <select id="categoryFilter" class="status-select">
+              <option value="all">All Categories</option>
+              <option value="coffee">Coffee</option>
+              <option value="tea">Tea</option>
+              <option value="pastry">Pastry</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Description</th>
+              <th>Availability</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="menuTableBody">
+            <!-- Menu items will be loaded here -->
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span class="page-link">1</span>
+          <span class="page-link">2</span>
+          <span class="page-link">3</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customers Section -->
+    <section class="section" id="customers">
+      <div class="header">
+        <h1>Customer Management</h1>
+        <div class="header-actions">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search customers...">
+          </div>
+          <button class="btn btn-primary" onclick="openModal('addCustomerModal')">
+            <i class="fas fa-plus"></i> Add Customer
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">All Customers</h2>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Total Orders</th>
+              <th>Last Order</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="customersTableBody">
+            <!-- Customers will be loaded here -->
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span class="page-link">1</span>
+          <span class="page-link">2</span>
+          <span class="page-link">3</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section class="section" id="settings">
+      <div class="header">
+        <h1>Settings</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Cafe Information</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Cafe Name</label>
+            <input type="text" class="form-control" value="Urban Brew Cafe">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" value="123 Coffee Street, Brewville">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="text" class="form-control" value="+91 9876543210">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" value="contact@urbanbrew.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Opening Hours</label>
+            <input type="text" class="form-control" value="8:00 AM - 9:00 PM">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Currency</label>
+            <select class="form-control">
+              <option selected>₹ (INR)</option>
+              <option>$ (USD)</option>
+              <option>€ (EUR)</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <button class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modals -->
+  <!-- Add Order Modal -->
+  <div class="modal-backdrop" id="addOrderModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Order</h3>
+        <button class="modal-close" onclick="closeModal('addOrderModal')">×</button>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">Customer</label>
+          <select class="form-control" id="orderCustomer">
+            <option value="">Select Customer</option>
+            <!-- Customers will be loaded here -->
+          </select>
+        </div>
+        <div id="orderItems">
+          <div class="form-group">
+            <label class="form-label">Items</label>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <select class="form-control" style="flex: 3;">
+                <option value="">Select Item</option>
+                <!-- Menu items will be loaded here -->
+              </select>
+              <input type="number" class="form-control" placeholder="Qty" min="1" value="1" style="flex: 1;">
+              <button class="btn btn-danger" style="flex: 0 0 auto;">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-secondary" style="margin-bottom: 1rem;">
+            <i class="fas fa-plus"></i> Add Item
+          </button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control" id="orderStatus">
+            <option value="pending">Pending</option>
+            <option value="accepted">Accepted</option>
+            <option value="preparing">Preparing</option>
+            <option value="delivered">Delivered</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addOrderModal')">Cancel</button>
+        <button class="btn btn-primary" id="saveOrderBtn">Save Order</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Menu Item Modal -->
+  <div class="modal-backdrop" id="addMenuItemModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Menu Item</h3>
+        <button class="modal-close" onclick="closeModal('addMenuItemModal')">×</button>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">Item Name</label>
+          <input type="text" class="form-control" id="menuItemName" placeholder="Enter item name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-control" id="menuItemCategory">
+            <option value="coffee">Coffee</option>
+            <option value="tea">Tea</option>
+            <option value="pastry">Pastry</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Price (₹)</label>
+          <input type="number" class="form-control" id="menuItemPrice" placeholder="Enter price">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" id="menuItemDescription" rows="3" placeholder="Enter description"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image URL</label>
+          <input type="text" class="form-control" id="menuItemImage" placeholder="Enter image URL">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Availability</label>
+          <select class="form-control" id="menuItemAvailability">
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addMenuItemModal')">Cancel</button>
+        <button class="btn btn-primary" id="saveMenuItemBtn">Save Item</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Menu Item Modal -->
+  <div class="modal-backdrop" id="updateMenuItemModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Update Menu Item</h3>
+        <button class="modal-close" onclick="closeModal('updateMenuItemModal')">×</button>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">Item Name</label>
+          <input type="text" class="form-control" id="umenuItemName" placeholder="Enter item name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-control" id="umenuItemCategory">
+            <option value="coffee">Coffee</option>
+            <option value="tea">Tea</option>
+            <option value="pastry">Pastry</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Price (₹)</label>
+          <input type="text" class="form-control" id="umenuItemPrice" placeholder="Enter price">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" id="umenuItemDescription" rows="3" placeholder="Enter description"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image URL</label>
+          <input type="text" class="form-control" id="umenuItemImage" placeholder="Enter image URL">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Availability</label>
+          <select class="form-control" id="umenuItemAvailability">
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('updateMenuItemModal')">Cancel</button>
+        <button class="btn btn-primary" id="updateMenuItemBtn">Save Item</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Customer Modal -->
+  <div class="modal-backdrop" id="addCustomerModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Customer</h3>
+        <button class="modal-close" onclick="closeModal('addCustomerModal')">×</button>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-control" id="customerFirstName" placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="customerLastName" placeholder="Enter last name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" id="customerEmail" placeholder="Enter email address">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-control" id="customerPhone" placeholder="Enter phone number">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <textarea class="form-control" id="customerAddress" placeholder="Enter address"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addCustomerModal')">Cancel</button>
+        <button class="btn btn-primary" id="saveCustomerBtn">Save Customer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Order Details Modal -->
+  <div class="modal-backdrop" id="viewOrderModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Order Details</h3>
+        <button class="modal-close" onclick="closeModal('viewOrderModal')">×</button>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">Order ID</label>
+          <div id="orderDetailsId" class="form-control"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Customer</label>
+          <div id="orderDetailsCustomer" class="form-control"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control" id="orderDetailsStatus">
+            <option value="pending">Pending</option>
+            <option value="accepted">Accepted</option>
+            <option value="preparing">Preparing</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Items</label>
+          <div id="orderDetailsItems" class="order-details"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Total</label>
+          <div id="orderDetailsTotal" class="form-control"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <div id="orderDetailsDate" class="form-control"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('viewOrderModal')">Close</button>
+        <button class="btn btn-primary" id="updateOrderStatusBtn">Update Status</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript functionality will be added here
+    document.addEventListener('DOMContentLoaded', function () {
+      // Navigation
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function () {
+          // Remove active class from all items
+          document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+          // Add active class to clicked item
+          this.classList.add('active');
+
+          // Show relevant section
+          const sectionId = this.getAttribute('data-section');
+          switchSection(sectionId);
+        });
+      });
+
+      // Load initial data
+      loadRecentOrders();
+      loadOrders();
+      loadMenuItems();
+      loadCustomers();
+
+      // Event listeners for save buttons
+      document.getElementById('saveOrderBtn').addEventListener('click', saveOrder);
+      document.getElementById('saveMenuItemBtn').addEventListener('click', saveMenuItem);
+      document.getElementById('updateMenuItemBtn').addEventListener('click', updateMenuItem);
+      document.getElementById('saveCustomerBtn').addEventListener('click', saveCustomer);
+      document.getElementById('updateOrderStatusBtn').addEventListener('click', updateOrderStatus);
+
+      // Event listeners for filters
+      document.getElementById('statusFilter').addEventListener('change', filterOrders);
+      document.getElementById('categoryFilter').addEventListener('change', filterMenuItems);
+    });
+
+    function switchSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+    }
+
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'flex';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    // These functions will be implemented with API calls to MongoDB server
+    function loadRecentOrders() {
+      fetch('orders')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('recentOrdersBody');
+          tableBody.innerHTML = '';
+
+          data.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${order.orderId}</td>
+              <td>${order.customer.name}</td>
+              <td>${order.items.length} items</td>
+              <td>₹${order.total.toFixed(2)}</td>
+              <td><span class="status status-${order.status.toLowerCase()}">${order.status}</span></td>
+              <td class="table-actions">
+                <button class="btn-icon btn-primary" onclick="viewOrder('${order.orderId}')">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error loading recent orders:', error));
+    }
+
+    function loadOrders() {
+      fetch('http://localhost:5000/orders')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('ordersTableBody');
+          tableBody.innerHTML = '';
+
+
+          console.log(data)
+
+          data.data.forEach(order => {
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${order.orderId}</td>
+              <td>${order.customer.firstName}  ${order.customer.lastName}</td>
+              <td>${order.items.length} items</td>
+              <td>₹${order.total.toFixed(2)}</td>
+              <td><span class="status status-${order.status.toLowerCase()}">${order.status}</span></td>
+              <td>${new Date(order.orderDate).toLocaleDateString()}</td>
+              <td class="table-actions">
+                <button class="btn-icon btn-primary" onclick="viewOrder('${order.orderId}')">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn-icon btn-danger" onclick="deleteOrder('${order.orderId}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error loading orders:', error));
+    }
+
+    function loadMenuItems() {
+      fetch('http://localhost:5000/api/menu')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('menuTableBody');
+          tableBody.innerHTML = '';
+
+
+
+          data.forEach(item => {
+            const row = document.createElement('tr');
+            console.log(item)
+            row.innerHTML = `
+              <td>${item.name}</td>
+              <td>${item.category}</td>
+              <td>${item.price}</td>
+              <td>${item.description}</td>
+              
+              <td class="table-actions">
+                <button class="btn-icon btn-primary" onclick="editMenuItem('${item.name}')">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon btn-danger" onclick="deleteMenuItem('${item.name}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error loading menu items:', error));
+    }
+
+    function loadCustomers() {
+      fetch('/api/customers')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('customersTableBody');
+          tableBody.innerHTML = '';
+
+          // Also populate the customer dropdown in the order form
+          const orderCustomerSelect = document.getElementById('orderCustomer');
+          orderCustomerSelect.innerHTML = '<option value="">Select Customer</option>';
+
+          data.forEach(customer => {
+            // Add to customers table
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${customer.firstName} ${customer.lastName}</td>
+              <td>${customer.phone}</td>
+              <td>${customer.email}</td>
+              <td>${customer.totalOrders || 0}</td>
+              <td>${customer.lastOrder ? new Date(customer.lastOrder).toLocaleDateString() : 'N/A'}</td>
+              <td class="table-actions">
+                <button class="btn-icon btn-primary" onclick="editCustomer('${customer._id}')">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon btn-danger" onclick="deleteCustomer('${customer._id}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+
+            // Add to order customer dropdown
+            const option = document.createElement('option');
+            option.value = customer._id;
+            option.textContent = `${customer.firstName} ${customer.lastName}`;
+            orderCustomerSelect.appendChild(option);
+          });
+        })
+        .catch(error => console.error('Error loading customers:', error));
+    }
+
+    function saveOrder() {
+      // Create order object from form data
+      const customerId = document.getElementById('orderCustomer').value;
+      const status = document.getElementById('orderStatus').value;
+
+      // Get items (this is simplified, you'd need to handle multiple items)
+      const items = [];
+      // In a real implementation, you would loop through all item rows
+
+      const orderData = {
+        customerId,
+        status,
+        items
+      };
+
+      fetch('http://localhost:5000/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          closeModal('addOrderModal');
+          loadOrders();
+          loadRecentOrders();
+        })
+        .catch(error => console.error('Error saving order:', error));
+    }
+
+    function saveMenuItem() {
+      const menuItemData = {
+        name: document.getElementById('menuItemName').value,
+        category: document.getElementById('menuItemCategory').value,
+        price: document.getElementById('menuItemPrice').value, // Keep as string
+        description: document.getElementById('menuItemDescription').value,
+        image: document.getElementById('menuItemImage').value // Include this if your schema expects image
+      };
+
+
+
+      fetch('http://localhost:5000/api/menu', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(menuItemData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          closeModal('addMenuItemModal');
+          loadMenuItems();
+        })
+        .catch(error => console.error('Error saving menu item:', error));
+    }
+
+    function updateMenuItem() {
+      const originalName = document.getElementById('updateMenuItemBtn').getAttribute('data-original-name');
+
+      const updatedData = {
+        name: document.getElementById('umenuItemName').value,
+        category: document.getElementById('umenuItemCategory').value,
+        price: document.getElementById('umenuItemPrice').value,
+        description: document.getElementById('umenuItemDescription').value,
+        image: document.getElementById('umenuItemImage').value
+      };
+
+      console.log(document.getElementById('menuItemPrice').value)
+
+      fetch(`http://localhost:5000/api/menu/${encodeURIComponent(originalName)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Menu item updated:', data);
+          closeModal('updateMenuItemModal');
+          loadMenuItems(); // reloads UI list if you have this
+        })
+        .catch(error => console.error('Error updating menu item:', error));
+    }
+
+
+
+
+    function saveCustomer() {
+      const customerData = {
+        firstName: document.getElementById('customerFirstName').value,
+        lastName: document.getElementById('customerLastName').value,
+        email: document.getElementById('customerEmail').value,
+        phone: document.getElementById('customerPhone').value,
+        address: document.getElementById('customerAddress').value
+      };
+
+      fetch('/api/customers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(customerData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          closeModal('addCustomerModal');
+          loadCustomers();
+        })
+        .catch(error => console.error('Error saving customer:', error));
+    }
+
+    function viewOrder(orderId) {
+      fetch(`http://localhost:5000/orders/${orderId}`)
+        .then(response => response.json())
+        .then(order => {
+
+          console.log(order.data.customer);
+          document.getElementById('orderDetailsId').textContent = order.data.orderId;
+          document.getElementById('orderDetailsCustomer').textContent = order.data.customer.firstName;
+          document.getElementById('orderDetailsStatus').value = order.status;
+
+          const itemsContainer = document.getElementById('orderDetailsItems');
+          itemsContainer.innerHTML = '';
+
+          order.data.items.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'order-item';
+            itemElement.innerHTML = `
+              <div>${item.name} x ${item.quantity}</div>
+              <div>₹${(item.price * item.quantity).toFixed(2)}</div>
+            `;
+            itemsContainer.appendChild(itemElement);
+          });
+
+          document.getElementById('orderDetailsTotal').textContent = `₹${order.data.total.toFixed(2)}`;
+          document.getElementById('orderDetailsDate').textContent = new Date(order.data.orderDate).toLocaleString();
+
+          // Store order ID for update operation
+          document.getElementById('updateOrderStatusBtn').setAttribute('data-order-id', order.data.orderId);
+
+          openModal('viewOrderModal');
+        })
+        .catch(error => console.error('Error fetching order details:', error));
+    }
+
+    function updateOrderStatus() {
+      const orderId = document.getElementById('updateOrderStatusBtn').getAttribute('data-order-id');
+      const newStatus = document.getElementById('orderDetailsStatus').value;
+
+      console.log(orderId);
+      console.log(newStatus);
+
+      fetch(`http://localhost:5000/orders/${orderId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: newStatus })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          closeModal('viewOrderModal');
+          loadOrders();
+          loadRecentOrders();
+        })
+        .catch(error => console.error('Error updating order status:', error));
+    }
+
+
+    function deleteOrder(orderId) {
+      if (confirm('Are you sure you want to delete this order?')) {
+        console.log('Trying to delete order with ID:', orderId);
+
+        fetch(`http://localhost:5000/orders/${orderId}`, {
+          method: 'DELETE'
+        })
+          .then(response => {
+            console.log('Response:', response);
+            if (!response.ok) {
+              throw new Error('Failed to delete');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Order deleted:', data);
+            loadOrders();
+            loadRecentOrders();
+          })
+          .catch(error => console.error('Error deleting order:', error));
+      }
+    }
+
+    function loadDashboardSummary() {
+      fetch('http://localhost:5000/orders/dashboard-summary')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('totalOrdersCount').textContent = data.totalOrders;
+          document.getElementById('revenueAmount').textContent = `₹${data.revenue}`;
+          document.getElementById('pendingOrdersCount').textContent = data.pendingOrders;
+        })
+        .catch(error => console.error('Error loading dashboard summary:', error));
+    }
+
+    // Call it on page load
+    loadDashboardSummary();
+
+
+    function editMenuItem(itemName) {
+      // Fetch the menu item details and open the modal for editing
+      fetch(`http://localhost:5000/api/menu/name/${itemName}`)
+        .then(response => response.json())
+        .then(item => {
+          console.log(item);
+          document.getElementById('umenuItemName').value = item.name;
+          document.getElementById('umenuItemCategory').value = item.category;
+          document.getElementById('umenuItemPrice').value = item.price;
+          document.getElementById('umenuItemDescription').value = item.description;
+          document.getElementById('umenuItemImage').value = item.image;
+
+          // Store the item ID for update
+          document.getElementById('updateMenuItemBtn').setAttribute('data-original-name', item.name);
+
+          openModal('updateMenuItemModal');
+        })
+        .catch(error => console.error('Error fetching menu item:', error));
+    }
+
+    function deleteMenuItem(name) {
+      if (confirm('Are you sure you want to delete this menu item?')) {
+        fetch(`http://localhost:5000/api/menu/${name}`, {
+          method: 'DELETE'
+        })
+          .then(response => response.json())
+          .then(data => {
+            loadMenuItems();
+          })
+          .catch(error => console.error('Error deleting menu item:', error));
+      }
+    }
+
+    function editCustomer(customerId) {
+      // Fetch the customer details and open the modal for editing
+      fetch(`/api/customers/${customerId}`)
+        .then(response => response.json())
+        .then(customer => {
+          document.getElementById('customerFirstName').value = customer.firstName;
+          document.getElementById('customerLastName').value = customer.lastName;
+          document.getElementById('customerEmail').value = customer.email;
+          document.getElementById('customerPhone').value = customer.phone;
+          document.getElementById('customerAddress').value = customer.address;
+
+          // Store the customer ID for update
+          document.getElementById('saveCustomerBtn').setAttribute('data-customer-id', customer._id);
+
+          openModal('addCustomerModal');
+        })
+        .catch(error => console.error('Error fetching customer:', error));
+    }
+
+    function deleteCustomer(customerId) {
+      if (confirm('Are you sure you want to delete this customer?')) {
+        fetch(`/api/customers/${customerId}`, {
+          method: 'DELETE'
+        })
+          .then(response => response.json())
+          .then(data => {
+            loadCustomers();
+          })
+          .catch(error => console.error('Error deleting customer:', error));
+      }
+    }
+
+    function filterOrders() {
+      const status = document.getElementById('statusFilter').value;
+      let url = 'http://localhost:5000/orders';
+
+      if (status !== 'all') {
+        url += `?status=${status}`;
+      }
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Re-render the orders table with filtered data
+          const tableBody = document.getElementById('ordersTableBody');
+          tableBody.innerHTML = '';
+
+          data.forEach(order => {
+            // Same code as in loadOrders()
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${order.orderId}</td>
+              <td>${order.customer.name}</td>
+              <td>${order.items.length} items</td>
+              <td>₹${order.total.toFixed(2)}</td>
+              <td><span class="status status-${order.status.toLowerCase()}">${order.status}</span></td>
+              <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+              <td class="table-actions">
+                <button class="btn-icon btn-primary" onclick="viewOrder('${order.orderId}')">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn-icon btn-danger" onclick="deleteOrder('${order.orderId}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error filtering orders:', error));
+    }
+
+    function filterMenuItems() {
+      const category = document.getElementById('categoryFilter').value;
+      let url = 'http://localhost:5000/api/menu';
+
+      if (category !== 'all') {
+        url += `?category=${category}`;
+      }
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Re-render the menu items table with filtered data
+          const tableBody = document.getElementById('menuTableBody');
+          tableBody.innerHTML = '';
+
+          data.forEach(item => {
+            // Same code as in loadMenuItems()
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${item.name}</td>
+              <td>${item.category}</td>
+              <td>${item.price.toFixed(2)}</td>
+              <td>${item.description}</td>
+              <td>${item.availability}</td>
+              <td class="table-actions">
+                <button class="btn-icon btn-primary" onclick="editMenuItem('${item._id}')">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon btn-danger" onclick="deleteMenuItem('${item._id}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error filtering menu items:', error));
+    }
+  </script>
+</body>
+
+</html>

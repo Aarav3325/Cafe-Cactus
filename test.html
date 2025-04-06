@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Cafe Cactus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" sizes="192x192" href="/img/logo.png" />
+    <link rel="stylesheet" href="/css/newmenu.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .checkout-container {
+            padding: 40px 20px;
+        }
+        
+        .checkout-section {
+            margin-bottom: 30px;
+        }
+        
+        .checkout-section h2 {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-total {
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-top: 15px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .payment-method {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method:hover {
+            border-color: #4CAF50;
+        }
+        
+        .payment-method.selected {
+            border-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .payment-method i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .place-order-btn {
+            display: block;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .place-order-btn:hover {
+            background-color: #3e8e41;
+        }
+        
+        .order-summary {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .order-items {
+            margin-bottom: 20px;
+        }
+        
+        .order-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .order-item-quantity {
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        
+        .order-item-name {
+            flex: 1;
+        }
+        
+        .order-item-price {
+            font-weight: 500;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="promo-bar">
+            <div class="container">
+                <p><strong>Get 5% Off on your first order, PROMOCODE: FIRST5</strong></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="Cafe Cactus Logo">
+                    <h1 style="color: whitesmoke;">Cafe Cactus</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/menu.html">Menu</a></li>
+                        <li><a href="#">Orders</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="user-cart">
+                    <a href="/cart.html" style="text-decoration: none;">
+                        <div class="cart-btn">
+                            <div class="glass">
+                                <i class="fas fa-shopping-cart" style="color: whitesmoke;"></i>
+                                <span style="color: whitesmoke;">Cart</span>
+                                <div class="cart-count">0</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="user-profile">
+                    <a href="/userprofile.html" style="text-decoration: none;">
+                        <div class="glass">
+                            <i class="fas fa-user" style="color: whitesmoke;"></i>
+                            <span style="color: whitesmoke;" id="username">Aarav</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="menu-hero">
+        <div class="menu-hero-content">
+            <h1>Checkout</h1>
+            <p>Complete your order</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="checkout-container">
+            <div class="two-column">
+                <div class="checkout-form">
+                    <form id="checkoutForm">
+                        <div class="checkout-section">
+                            <h2>Delivery Information</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" name="address" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" name="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zipCode">Postal Code</label>
+                                    <input type="text" id="zipCode" name="zipCode" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="checkout-section">
+                            <h2>Delivery Instructions</h2>
+                            <div class="form-group">
+                                <label for="instructions">Special Instructions (Optional)</label>
+                                <textarea id="instructions" name="instructions" 
+                                    placeholder="Any specific instructions for delivery?"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="checkout-section">
+                            <h2>Payment Method</h2>
+                            <input type="hidden" id="paymentMethod" name="paymentMethod" value="card">
+                            <div class="payment-methods">
+                                <div class="payment-method selected" data-method="card">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Credit Card</span>
+                                </div>
+                                <div class="payment-method" data-method="upi">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>UPI</span>
+                                </div>
+                                <div class="payment-method" data-method="cod">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Cash on Delivery</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="place-order-btn">Place Order</button>
+                    </form>
+                </div>
+                
+                <div class="order-summary glass">
+                    <h2>Order Summary</h2>
+                    <div id="orderItems" class="order-items">
+                        <!-- Order items will be dynamically inserted here -->
+                    </div>
+                    <div id="orderSummary" class="summary-items">
+                        <!-- Summary items will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="img/logo.png" alt="Cafe Cactus Logo">
+                    <h3>Cafe Cactus</h3>
+                    <p>Delivering delicious meals with a focus on quality ingredients and exceptional taste.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Browse Menu</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> SBR, Ahmedabad</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@cafecactus.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© Cafe Cactus Copyright 2025, All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/checkout.js"></script>
+</body>
+</html>
